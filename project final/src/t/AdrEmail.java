@@ -7,7 +7,7 @@ public class AdrEmail {
 	private String pseudo ;
 	private String site ; 
 	private String mdp ;
-	private Profil profil ;
+	private profil profil ;
 	
 	AdrEmail(){
 	}

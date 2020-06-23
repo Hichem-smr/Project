@@ -31,4 +31,21 @@ public class AdrProf extends AdrEmail {
 	public boolean equals(Object o) {
 		return(super.equals(o));		
 	}
+
+	public String getEntreprise() {
+		return entreprise;
+	}
+
+	public void setEntreprise(String entreprise) {
+		this.entreprise = entreprise;
+	}
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
+	
 }
