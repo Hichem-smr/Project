@@ -3,8 +3,8 @@ package t;
 import java.util.Scanner;
 
 public class AdrProf extends AdrEmail {
-	String entreprise;
-	String domain;
+	private String entreprise;
+	private String domain;
 	
 	AdrProf(String pseudo , String site , String mdp, String domain , String entreprise) {
 		super();
@@ -12,7 +12,7 @@ public class AdrProf extends AdrEmail {
 		this.domain = domain;
 	}
 	
-	void saisie() {
+	public void saisie() {
 		Scanner scanner = new Scanner(System.in);
 		super.Saisie_AdrEmail();
 		System.out.println("----Veuillez insérez le nom de l'entreprise----");
@@ -25,5 +25,10 @@ public class AdrProf extends AdrEmail {
 	
 	public String toString() {
 		return(super.toString() +", "+entreprise +", "+domain);
+	}
+	
+	
+	public boolean equals(Object o) {
+		return(super.equals(o));		
 	}
 }

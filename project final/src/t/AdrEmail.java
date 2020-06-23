@@ -7,7 +7,7 @@ public class AdrEmail {
 	private String pseudo ;
 	private String site ; 
 	private String mdp ;
-	
+	private Profil profil ;
 	
 	AdrEmail(){
 	}
@@ -92,7 +92,6 @@ public class AdrEmail {
 	}
 	// method pour verifier si le pseudo est valide
 	public static boolean Verif_pseudo(String pseudo) {
-		boolean starts_with_character;
 		
 		if(Character.isLetter(pseudo.charAt(0)) == false) {
 			System.out.println("Pseudonyme invalid. Le premier caractère n'est pas une lettre.");
@@ -145,6 +144,23 @@ public class AdrEmail {
 	}
 
 
+	public boolean equals(Object o) {
+		
+		if (o==null)
+			return false ;
+		
+		if(!(o instanceof AdrEmail))
+			return false ;
+		
+		
+		String user = ((AdrEmail)o).pseudo;
+		String site = ((AdrEmail)o).site; 
+		if(this.pseudo==user && this.site == site)
+			return true ;
+		
+		return false ;
+	}
+	
 	public String getPseudo() {
 		return pseudo;
 	}

@@ -2,19 +2,19 @@ package t;
 
 import java.util.Scanner;
 
-public class profil {
+public class Profil {
 	enum Genre {
 		FEMININ, MASCULAIN;
 	}
-	String nom;
-	String prenom;
-	int age;
-	int numero;
-	String pays;
-	Genre genre;
+	private String nom;
+	private String prenom;
+	private int age;
+	private int numero;
+	private String pays;
+	private Genre genre;
 	
 	
-	void Saisie_Profil() {
+	public void Saisie_Profil() {
 		
 		Scanner scanner = new Scanner(System.in);
 		
@@ -50,4 +50,17 @@ public class profil {
 	}
 	 
 	
+	public boolean equals(Object o) {
+		
+		if (o==null)
+			return false ;
+		
+		if(!(o instanceof Profil))
+			return false ;
+		
+		if(numero == ((Profil)o).numero)
+			return true ;
+		
+		return false; 
+	}
 }
