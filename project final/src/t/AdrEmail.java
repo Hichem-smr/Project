@@ -21,7 +21,7 @@ public class AdrEmail {
 	
 	
 	public String toString() {
-		return (pseudo + '@'+ getSite() );
+		return (pseudo + '@'+ site );
 	}
 	
 	
@@ -94,15 +94,22 @@ public class AdrEmail {
 	public static boolean Verif_pseudo(String pseudo) {
 		boolean starts_with_character;
 		
-		if(Character.isLetter(pseudo.charAt(0)) == false) 
+		if(Character.isLetter(pseudo.charAt(0)) == false) {
+			System.out.println("Pseudonyme invalid. Le premier caractère n'est pas une lettre.");
 			return false;
-		else for(int i=1; i<pseudo.length(); i++) {
+		}
+		
+		for(int i=1; i<pseudo.length(); i++) {
+			
 			if(Character.isLetter(pseudo.charAt(i)) == false && Character.isDigit(pseudo.charAt(i)) == false && pseudo.charAt(i) != '-' && pseudo.charAt(i) != '_' && pseudo.charAt(i) != '.' ) {
+				System.out.println("Pseudonyme invalid. Presence de caractere(s) interedit(s).");				
 				return false;
 			}
+			
 		}
 		return true;
 	}
+	
 	
 	public void Saisie_AdrEmail() {
 		//insertion du pseudo
@@ -111,7 +118,6 @@ public class AdrEmail {
 		int k = 0;
 		do {
 			if(k != 0) {
-				System.out.println("****Erreur****");
 				System.out.println("----Veuillez reinsérez votre Nom d'utilisateur----");
 			}
 			pseudo = scanner.nextLine();
@@ -128,9 +134,9 @@ public class AdrEmail {
 		//insertion du mot de passe
 		k=0;
 		System.out.println("----Veuillez insérez votre Mot de passe----");
+		
 		do {
 			if(k != 0) {
-				System.out.println("****Erreur****");
 				System.out.println("----Veuillez reinsérez votre Mot de passe----");
 			}
 			mdp = scanner.nextLine();

@@ -3,7 +3,7 @@ package t;
 import java.util.Scanner;
 
 public class profil {
-	enum genre {
+	enum Genre {
 		FEMININ, MASCULAIN;
 	}
 	String nom;
@@ -11,7 +11,9 @@ public class profil {
 	int age;
 	int numero;
 	String pays;
-	genre type;
+	Genre genre;
+	
+	
 	void Saisie_Profil() {
 		
 		Scanner scanner = new Scanner(System.in);
@@ -35,15 +37,15 @@ public class profil {
 		int k;
 		
 		do { 
-		System.out.println("----1 Pour masculain----");
-		System.out.println("----2 Pour feminin----");
-		k = scanner.nextInt();
-		if(k == 1) {
-			type = genre.valueOf("MASCULAIN");
-		}
-		else if(k == 2) {
-			type = genre.valueOf("FEMININ");
-		}
+			System.out.println("----1 Pour masculain----");
+			System.out.println("----2 Pour feminin----");
+			k = scanner.nextInt();
+			if(k == 1) {
+				genre = Genre.valueOf("MASCULAIN");
+			}
+			else if(k == 2) {
+				genre = Genre.valueOf("FEMININ");
+			}
 		} while(k != 1 || k != 2);
 	}
 	 

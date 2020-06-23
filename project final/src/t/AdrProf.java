@@ -3,22 +3,27 @@ package t;
 import java.util.Scanner;
 
 public class AdrProf extends AdrEmail {
-	String travaille;
+	String entreprise;
 	String domain;
 	
-	AdrProf(String pseudo , String site , String mdp, String domain) {
+	AdrProf(String pseudo , String site , String mdp, String domain , String entreprise) {
 		super();
-		this.travaille = site.toString().replace(".com", "");
+		this.entreprise = entreprise ;
 		this.domain = domain;
 	}
 	
 	void saisie() {
 		Scanner scanner = new Scanner(System.in);
 		super.Saisie_AdrEmail();
-		
-		travaille = getSite().toString().replace(".com", "") ;
+		System.out.println("----Veuillez insérez le nom de l'entreprise----");
+		entreprise = scanner.nextLine();
 		
 		System.out.println("----Veuillez insérez le domain du travaille----");
 		domain = scanner.nextLine();
+	}
+	
+	
+	public String toString() {
+		return(super.toString() +", "+entreprise +", "+domain);
 	}
 }
