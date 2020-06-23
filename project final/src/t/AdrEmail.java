@@ -97,7 +97,7 @@ public class AdrEmail {
 		if(Character.isLetter(pseudo.charAt(0)) == false) 
 			return false;
 		else for(int i=1; i<pseudo.length(); i++) {
-			if(Character.isLetter(pseudo.charAt(i)) == false || Character.isDigit(pseudo.charAt(i)) == false || pseudo.charAt(i) != '-' || pseudo.charAt(i) != '_' || pseudo.charAt(i) != '.' ) {
+			if(Character.isLetter(pseudo.charAt(i)) == false && Character.isDigit(pseudo.charAt(i)) == false && pseudo.charAt(i) != '-' && pseudo.charAt(i) != '_' && pseudo.charAt(i) != '.' ) {
 				return false;
 			}
 		}
