@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 public class MessageAttach extends Message {
 	
-	private HashSet<PieceJointe> attachement ;
+	private HashSet<piece_jointe> attachement ;
 	private long tailleattachement =0;
 	
 	MessageAttach(){
@@ -17,13 +17,13 @@ public class MessageAttach extends Message {
 		tailleattachement=0 ;
 	}
 	
-	MessageAttach(String titre , String contenu , Date creation, Etat etat, HashSet<PieceJointe> attachement ){
+	MessageAttach(String titre , String contenu , Date creation, Etat etat, HashSet<piece_jointe> attachement ){
 		super(titre , contenu , creation , etat );
 		this.attachement = attachement ;
 		Iterator it = attachement.iterator() ;
 		
 		while(it.hasNext()) {
-			tailleattachement += ((PieceJointe)it.next()).getTaille() ;
+			tailleattachement += ((piece_jointe)it.next()).getTaille() ;
 		}
 	}
 	
@@ -50,7 +50,7 @@ public class MessageAttach extends Message {
 		if(choix==1) {
 			
 			do {
-				PieceJointe piece = new PieceJointe(); 
+				piece_jointe piece = new piece_jointe(); 
 				piece.saisie();
 				
 				//la methode add retourne faux si l'element existe deja dans le set
@@ -78,7 +78,7 @@ public class MessageAttach extends Message {
 	}
 	
 	
-	public void ajouterPiece(PieceJointe piece) throws ExceptionPieceExistante {
+	public void ajouterPiece(piece_jointe piece) throws ExceptionPieceExistante {
 		
 		boolean b = attachement.add(piece) ;
 		if(!b) {

@@ -8,6 +8,7 @@ public class AdrEmail {
 	private String site ; 
 	private String mdp ;
 	private Profil profil ;
+	 boite_de_messagerie boite_de_messagerie = new boite_de_messagerie();;
 	
 	AdrEmail(){
 	}
@@ -144,23 +145,34 @@ public class AdrEmail {
 	}
 
 
-	public boolean equals(Object o) {
-		
-		if (o==null)
-			return false ;
-		
-		if(!(o instanceof AdrEmail))
-			return false ;
-		
-		
-		String user = ((AdrEmail)o).pseudo;
-		String site = ((AdrEmail)o).site; 
-		if(this.pseudo.contentEquals(user) && this.site.contentEquals(site))
-			return true ;
-		
-		return false ;
-	}
 	
+	
+	
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AdrEmail other = (AdrEmail) obj;
+		if (pseudo == null) {
+			if (other.pseudo != null)
+				return false;
+		} else if (!pseudo.equals(other.pseudo))
+			return false;
+		if (site == null) {
+			if (other.site != null)
+				return false;
+		} else if (!site.equals(other.site))
+			return false;
+		return true;
+	}
+
+
 	public String getPseudo() {
 		return pseudo;
 	}
@@ -189,5 +201,17 @@ public class AdrEmail {
 	public void setSite(String site) {
 		this.site = site;
 	}
+
+
+	public boite_de_messagerie getBoite_de_messagerie() {
+		return boite_de_messagerie;
+	}
+
+
+	public void setBoite_de_messagerie(boite_de_messagerie boite_de_messagerie) {
+		this.boite_de_messagerie = boite_de_messagerie;
+	}
+	
+	
 }
 

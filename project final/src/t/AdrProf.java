@@ -12,6 +12,10 @@ public class AdrProf extends AdrEmail {
 		this.domain = domain;
 	}
 	
+	public AdrProf() {
+		
+	}
+
 	public void saisie() {
 		Scanner scanner = new Scanner(System.in);
 		super.Saisie_AdrEmail();

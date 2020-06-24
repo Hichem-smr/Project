@@ -21,7 +21,8 @@ public class Message {
 	private String contenu ;
 	private Date creation ;
 	private Etat etat ;
-	int taille = titre.length() + contenu.length();
+	int taille ;
+	// = titre.length() + contenu.length();
 	
 	
 	Message(){
@@ -105,6 +106,9 @@ public class Message {
 	public void saisie() throws MoreThan10485760, ExceptionPieceExistante   {
 		
 		Scanner scanner = new Scanner(System.in);
+		int z;
+		
+		
 		
 		System.out.println("----Veuillez insérez l'objet de votre message----");
 		titre = scanner.nextLine();
@@ -113,6 +117,39 @@ public class Message {
 		creation = new Date() ;		//Date() returns the current system date.
 		etat = Etat.CREE ;
 		taille = titre.length() + contenu.length() ;
+		
+			System.out.println("---- Voulez vous ----");
+			System.out.println("--1--  Afficher votre message ? ----");
+			System.out.println("--2--  Modifier votre message ? ----");
+			System.out.println("--3--  EXIT ?  ----");
+			int k = scanner.nextInt();
+			switch(k) {
+			case 1 :
+			System.out.println(this.toString());
+			case 2:
+				int f;
+				do {
+					System.out.println("-----  Voulez vous -----");
+					System.out.println("--1--  Modifier votre Objet ? ----");
+					System.out.println("--2--  Modifier votre Contenu du message ? ----");
+					System.out.println("--3--  EXIT ? ----");
+					 f = scanner.nextInt();
+					 if(f == 1) {
+						 System.out.println("----Veuillez insérez l'objet de votre message----");
+							titre = scanner.next();
+					 } 
+					 else if(f == 2) {
+						 System.out.println("----Veuillez insérez le contenu de votre message----");
+							contenu = scanner.next();
+					 }
+				} while(f != 1 && f !=2);
+				
+			
+			}
+			
+			
+		
+		
 		
 	}
 	
