@@ -13,8 +13,16 @@ public class Profil {
 	private String pays;
 	private Genre genre;
 	
+	Profil(String nom, String prenom, int age, int numero, String pays, String genre) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.age = age;
+		this.numero = numero;
+		this.pays = pays;
+		this.genre = Genre.valueOf(genre);
+	}
 	
-	public void Saisie_Profil() {
+	public void saisieProfil() {
 		
 		Scanner scanner = new Scanner(System.in);
 		
@@ -48,19 +56,47 @@ public class Profil {
 			}
 		} while(k != 1 || k != 2);
 	}
+
+	@Override
+	public String toString() {
+		return "profil [nom=" + nom + ", prenom=" + prenom + ", age=" + age + ", numero=" + numero + ", pays=" + pays
+				+ ", genre=" + genre + "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Profil other = (Profil) obj;
+		if (age != other.age)
+			return false;
+		if (genre != other.genre)
+			return false;
+		if (nom == null) {
+			if (other.nom != null)
+				return false;
+		} else if (!nom.equals(other.nom))
+			return false;
+		if (numero != other.numero)
+			return false;
+		if (pays == null) {
+			if (other.pays != null)
+				return false;
+		} else if (!pays.equals(other.pays))
+			return false;
+		if (prenom == null) {
+			if (other.prenom != null)
+				return false;
+		} else if (!prenom.equals(other.prenom))
+			return false;
+		return true;
+	}
+	
+	
 	 
 	
-	public boolean equals(Object o) {
-		
-		if (o==null)
-			return false ;
-		
-		if(!(o instanceof Profil))
-			return false ;
-		
-		if(numero == ((Profil)o).numero)
-			return true ;
-		
-		return false; 
-	}
 }

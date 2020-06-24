@@ -4,25 +4,25 @@ import java.util.Scanner;
 
 
 
-public class piece_jointe {
-	String nom;
-	long taille;
-	piece_jointe(String nom, int taille) {
+public class PieceJointe {
+	private String nom;
+	private long taille;
+	PieceJointe(String nom, int taille) {
 		this.nom = nom;
 		this.taille = taille;
 	}
-	public piece_jointe() {
+	public PieceJointe() {
 		
 	}
-	void saisie() throws MoreThan10000000 {
+	public void saisie() throws MoreThan10485760 {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("----Veuillez inserez votre Nom de piece-jointe----");
-		nom = scanner.next();
+		nom = scanner.nextLine();
 		System.out.println("----Veuillez inserez votre taille de piece-jointe En Octets----");
 		System.out.println("****HINT : ça ne doit pas dépasser 10 Mo (10000000 octets)");
 		taille = scanner.nextLong();
 		if(taille > 10000000) {
-			throw( new MoreThan10000000("**Votre taille depasse La taille maximum**"));
+			throw( new MoreThan10485760("**Votre taille depasse La taille maximum**"));
 		}
 		
 	}
@@ -40,7 +40,7 @@ public class piece_jointe {
 	}
 	@Override
 	public String toString() {
-		return "piece_jointe [nom=" + nom + ", taille=" + taille + "]";
+		return "piece_jointe [nom=" + nom + ", taille=" + taille + "]\n ";
 	}
 	
 	@Override
@@ -51,7 +51,7 @@ public class piece_jointe {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		piece_jointe other = (piece_jointe) obj;
+		PieceJointe other = (PieceJointe) obj;
 		if (nom == null) {
 			if (other.nom != null)
 				return false;
@@ -59,6 +59,8 @@ public class piece_jointe {
 			return false;
 		if (taille != other.taille)
 			return false;
+		
+		
 		return true;
 	}
 	

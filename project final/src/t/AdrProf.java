@@ -20,6 +20,7 @@ public class AdrProf extends AdrEmail {
 		
 		System.out.println("----Veuillez insérez le domain du travaille----");
 		domain = scanner.nextLine();
+		
 	}
 	
 	

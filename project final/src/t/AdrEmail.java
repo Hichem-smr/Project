@@ -7,7 +7,7 @@ public class AdrEmail {
 	private String pseudo ;
 	private String site ; 
 	private String mdp ;
-	private profil profil ;
+	private Profil profil ;
 	
 	AdrEmail(){
 	}
@@ -155,7 +155,7 @@ public class AdrEmail {
 		
 		String user = ((AdrEmail)o).pseudo;
 		String site = ((AdrEmail)o).site; 
-		if(this.pseudo==user && this.site == site)
+		if(this.pseudo.contentEquals(user) && this.site.contentEquals(site))
 			return true ;
 		
 		return false ;

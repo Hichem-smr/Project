@@ -17,7 +17,6 @@ enum Etat	{
 public class Message {
 	
 	Scanner scanner = new Scanner(System.in);
-	private piece_jointe piece_jointe;
 	private String titre ;
 	private String contenu ;
 	private Date creation ;
@@ -26,7 +25,7 @@ public class Message {
 	
 	
 	Message(){
-		setEtat(Etat.CREE) ;
+		etat = Etat.CREE;
 		taille = 0 ;
 	}
 	
@@ -35,8 +34,8 @@ public class Message {
 		this.creation = creation ;
 		this.titre = titre ;
 		this.contenu = contenu ; 
-		this.setEtat(etat) ;
-		
+		this.etat = etat ;
+		taille = titre.length() + contenu.length();
 	}
 
 	public Etat getEtat() {
@@ -102,28 +101,23 @@ public class Message {
 	}
 	
 	//we need modify message method
-	void saisie_message() throws MoreThan10000000 {
+	
+	public void saisie() throws MoreThan10485760, ExceptionPieceExistante   {
 		
+		Scanner scanner = new Scanner(System.in);
 		
-		
-		// add the others here
-		// saisie de piece jointe
-		int k;
-		System.out.println("----Veuillez vous inserez une piece-jointe?----");
-		do {
-			System.out.println("1--Oui");
-			System.out.println("2--Non");
-			k = scanner.nextInt();
-		} while(k != 1 && k != 2);
-		
-		//la saisie de piece jointe
-		
-		if(k == 1) {
-			piece_jointe = new piece_jointe();
-			piece_jointe.saisie();
-		}
+		System.out.println("----Veuillez insérez l'objet de votre message----");
+		titre = scanner.nextLine();
+		System.out.println("----Veuillez insérez le contenu de votre message----");
+		contenu = scanner.nextLine();
+		creation = new Date() ;		//Date() returns the current system date.
+		etat = Etat.CREE ;
+		taille = titre.length() + contenu.length() ;
 		
 	}
+	
+	
+	
 	
 	
 	
