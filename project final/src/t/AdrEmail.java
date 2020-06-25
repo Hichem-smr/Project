@@ -8,9 +8,10 @@ public class AdrEmail {
 	private String site ; 
 	private String mdp ;
 	private Profil profil ;
-	 boite_de_messagerie boite_de_messagerie = new boite_de_messagerie();;
+	BoiteMsg boite_de_messagerie ;
 	
 	AdrEmail(){
+		boite_de_messagerie = new BoiteMsg();
 	}
 	
 	
@@ -18,6 +19,7 @@ public class AdrEmail {
 		this.mdp = mdp ;
 		this.pseudo = pseudo ;
 		this.setSite(site) ;
+		boite_de_messagerie = new BoiteMsg();
 	}
 	
 	
@@ -203,12 +205,12 @@ public class AdrEmail {
 	}
 
 
-	public boite_de_messagerie getBoite_de_messagerie() {
+	public BoiteMsg getBoite_de_messagerie() {
 		return boite_de_messagerie;
 	}
 
 
-	public void setBoite_de_messagerie(boite_de_messagerie boite_de_messagerie) {
+	public void setBoite_de_messagerie(BoiteMsg boite_de_messagerie) {
 		this.boite_de_messagerie = boite_de_messagerie;
 	}
 	

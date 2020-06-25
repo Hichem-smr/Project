@@ -48,7 +48,7 @@ public class MessageAttach extends Message {
 		}while(choix!=1 && choix!=2);
 		
 		if(choix==1) {
-			
+			attachement = new HashSet<piece_jointe>() ;
 			do {
 				piece_jointe piece = new piece_jointe(); 
 				piece.saisie();

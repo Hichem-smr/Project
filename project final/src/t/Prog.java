@@ -1,14 +1,35 @@
 package t;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Scanner;
+
 
 public class Prog {
 
+	/*ive made the list of adresses into a static object so it can be accessible everywhere.
+	ive picked hashmap to make it easier to access the adresse u need.
+	the key of an element corresponds to the return value of its toString() method.
+	for example the key of the element :
+	
+	pseudo: abdelghani
+	site : gmail.com
+	
+	is the string "abdelghani@gmail.com".
+	which means if u wanted to get that element u do adresses.get("abdelghani@gmail.com") .
+	
+	*/
+	
+	public static HashMap<String ,AdrEmail> adresses = new HashMap<String ,AdrEmail>() ;
+	
+
+	
+	
 	public static void main(String[] args) throws MoreThan10485760, destinataire_incorrecte, ExceptionPieceExistante {
 		Scanner scanner = new Scanner(System.in);
 		AdrEmail adr [] = new AdrEmail [6];
 		AdrProf adr1 [] = new AdrProf [2];
-		adr[0] = new AdrEmail("shadow","outlook.com","azerfazer12$");
+		adr[0] =  new AdrEmail("shadow","outlook.com","azerfazer12$") ;
 		adr[1] = new AdrEmail("ngedmond","hotmail.com","azerfazer12$");
 		adr[2] = new AdrEmail("tedrlord","gmail.com","azerfazer12$");
 		adr[3] = new AdrEmail("crobles","gmail.com","azerfazer12$");
@@ -16,7 +37,20 @@ public class Prog {
 		adr[5] = new AdrEmail("andale","verizon.net","azerfazer12$");
 		adr1[0] = new AdrProf("markzuckerberg","facebook.com","azerfazer12$","médias sociaux","facebook");
 		adr1[1] = new AdrProf("sboukhedouma","usthb.dz","azerfazer12$","Enseignement","usthb");
+ 
+		int y = 0;
 		
+		//filling up the addresses hashmap.
+		for(int i = 0 ; i<6 ; i++) {
+			
+			adresses.put(adr[i].toString(), adr[i]) ;
+			adresses.put(adr1[y].toString(), adr1[y]);
+			y++ ;
+			
+		}
+		
+		
+	
 		int j ;
 		do {
 		System.out.println("----Veuillez inserez votre Address Email ----");
@@ -62,6 +96,7 @@ public class Prog {
 							//send the message to the email
 							message.setEtat(Etat.valueOf("RECU"));
 							adr[i].boite_de_messagerie.AddReçu(message);
+							
 							System.out.println("success");
 							//need to set msg state as sent from sender, and received from receiver
 							break;

@@ -116,7 +116,7 @@ public class Message {
 		contenu = scanner.nextLine();
 		creation = new Date() ;		//Date() returns the current system date.
 		etat = Etat.CREE ;
-		taille = titre.length() + contenu.length() ;
+		
 		
 			System.out.println("---- Voulez vous ----");
 			System.out.println("--1--  Afficher votre message ? ----");
@@ -147,13 +147,17 @@ public class Message {
 			
 			}
 			
-			
-		
-		
-		
+			taille = titre.length() + contenu.length() ;
 	}
 	
 	
+	
+	public void afficher() {
+		
+		titre = titre.replace("(NON LU)", "");
+		System.out.println("Objet : " + titre + "\n");
+		System.out.println("\t" + contenu );
+	}
 	
 	
 	
