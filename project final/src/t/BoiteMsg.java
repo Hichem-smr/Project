@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Map;
 import java.util.Scanner;
 
 public class BoiteMsg {
@@ -38,19 +39,32 @@ public class BoiteMsg {
 	}
 	
 	
-	public void envoyerMsg() throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante{
+	public void envoyerMsg() throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
 		
 		HashMap<String, AdrEmail> adresses = Prog.adresses ;
 		Scanner scanner = new Scanner(System.in) ;
 		Message msg = new MessageAttach() ;
 		String keydestinataire ;
 		AdrEmail valuedestinataire ;
-		
 		msg.saisie();
+		
+		String titre = msg.getTitre();
+		String contenu = msg.getContenu();
+		System.out.println(titre + contenu);
+		if(titre.isBlank() == true || titre.isEmpty() == true) {
+			if(contenu.isBlank() == true || contenu.isEmpty() == true) {
+				throw new message_vide("**Votre message est vide");
+			}
+		}
 		
 		this.brouillons.add(msg) ;
 		int choix;
 		do {
+			Iterator iterator = Prog.adresses.entrySet().iterator();
+	        while (iterator.hasNext()){
+	        	Map.Entry Adr = (Map.Entry) iterator.next();
+	        	System.out.println(Adr.getKey());
+	        }
 			System.out.println("----Veuillez inserez votre Address Email Destinataires----");
 			keydestinataire = scanner.nextLine() ;
 			if(!Prog.adresses.containsKey(keydestinataire)) {

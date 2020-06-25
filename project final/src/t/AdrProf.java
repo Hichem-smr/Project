@@ -29,7 +29,7 @@ public class AdrProf extends AdrEmail {
 	
 	
 	public String toString() {
-		return(super.toString() +", "+entreprise +", "+domain);
+		return(super.toString());
 	}
 	
 	

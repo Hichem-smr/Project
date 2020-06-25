@@ -130,7 +130,7 @@ public class AdrEmail {
 		//Insertion du site
 		System.out.println("----Veuillez inserez votre Nom du site----");
 		String site1 = scanner.nextLine();
-		setSite(site1.concat(".com"));
+		setSite(site1.concat(""));
 		
 		
 		//insertion du mot de passe
@@ -147,7 +147,22 @@ public class AdrEmail {
 	}
 
 
-	
+	public void SendAdrEmail() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("----Veuillez inserez votre Nom d'utilisateur----");
+		int k = 0;
+		do {
+			if(k != 0) {
+				System.out.println("----Veuillez reinsérez votre Nom d'utilisateur----");
+			}
+			pseudo = scanner.nextLine();
+			k = 1;
+		} while(!Verif_pseudo(pseudo));
+		
+		System.out.println("----Veuillez inserez votre Nom du site----");
+		String site1 = scanner.nextLine();
+		setSite(site1.concat(""));
+	}
 	
 	
 
