@@ -8,7 +8,7 @@ public class AdrEmail {
 	private String site ; 
 	private String mdp ;
 	private Profil profil ;
-	BoiteMsg boite_de_messagerie ;
+	private BoiteMsg boite_de_messagerie ;
 	
 	AdrEmail(){
 		boite_de_messagerie = new BoiteMsg();
@@ -113,7 +113,7 @@ public class AdrEmail {
 	}
 	
 	
-	public void Saisie_AdrEmail() {
+	public void saisie() {
 		//insertion du pseudo
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("----Veuillez inserez votre Nom d'utilisateur----");
@@ -145,25 +145,6 @@ public class AdrEmail {
 			k = 1;
 		} while(!mdpValide(mdp));
 	}
-
-
-	public void SendAdrEmail() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("----Veuillez inserez votre Nom d'utilisateur----");
-		int k = 0;
-		do {
-			if(k != 0) {
-				System.out.println("----Veuillez reinsérez votre Nom d'utilisateur----");
-			}
-			pseudo = scanner.nextLine();
-			k = 1;
-		} while(!Verif_pseudo(pseudo));
-		
-		System.out.println("----Veuillez inserez votre Nom du site----");
-		String site1 = scanner.nextLine();
-		setSite(site1.concat(""));
-	}
-	
 	
 
 

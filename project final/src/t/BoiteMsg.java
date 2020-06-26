@@ -11,7 +11,7 @@ public class BoiteMsg {
 	//here's what we'll do,
 	//all messages will be the Type Message Attach, and the user will have the choice
 	//to whether treat it as a message with a file or not
-	private MessageAttach message = new MessageAttach();
+	
 	private HashSet<Message> reçus ;
 	private HashSet<Message> envoyés ;
 	private HashSet<Message> brouillons;
@@ -28,7 +28,6 @@ public class BoiteMsg {
 		archives = new HashSet<Message>();
 		corbeille = new HashSet<Message>();
 		spam = new HashSet<Message>();
-	
 	}
 	
 	
@@ -43,7 +42,7 @@ public class BoiteMsg {
 		
 		HashMap<String, AdrEmail> adresses = Prog.adresses ;
 		Scanner scanner = new Scanner(System.in) ;
-		Message msg = new MessageAttach() ;
+		MessageAttach msg = new MessageAttach() ;
 		String keydestinataire ;
 		AdrEmail valuedestinataire ;
 		msg.saisie();
@@ -70,8 +69,11 @@ public class BoiteMsg {
 			if(!Prog.adresses.containsKey(keydestinataire)) {
 				throw (new destinataire_incorrecte("L'adresse saisie est incorrecte")) ;
 			}
+			MessageAttach msg2 = new MessageAttach(msg) ;
+			msg2.setEtat(Etat.RECU);
+			msg.setTitre(msg.getTitre()+" (NON LU)");
 			valuedestinataire = adresses.get(keydestinataire) ; //get the AdrMail with key keydistinatiare
-			valuedestinataire.boite_de_messagerie.AddReçu(msg);// add the message to that AdrMail
+			valuedestinataire.getBoite_de_messagerie().AddReçu(msg2);// add the message to that AdrMail
 			adresses.put(keydestinataire, valuedestinataire) ;//put the updated version with the sent nessage bacl into the hashmap
 			do {
 				System.out.println("----Voulez vous ajouter d'autres destinataires ?---");
@@ -84,9 +86,9 @@ public class BoiteMsg {
 		}while(choix==1) ;
 		
 		//add the message to the "envoyes" folder after succesfully sending it
+		msg.setTitre(msg.getTitre().replace("(NON LU)", ""));
 		msg.setEtat(Etat.ENVOYE);
 		envoyés.add(msg) ;
-		
 	}
 	
 	
@@ -362,4 +364,14 @@ public class BoiteMsg {
 		return brouillons.size() ;
 	}
 
+	
+	public HashSet<Message> getRecus(){
+		return this.reçus ;
+	}
+	
+	
+	public HashSet<Message> getEnvoyes(){
+
+		return this.envoyés ;
+	}
 }

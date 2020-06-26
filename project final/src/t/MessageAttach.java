@@ -13,6 +13,7 @@ public class MessageAttach extends Message {
 	private long tailleattachement =0;
 	
 	MessageAttach(){
+		attachement = new HashSet<piece_jointe>() ;
 		setEtat(Etat.CREE);
 		tailleattachement=0 ;
 	}
@@ -28,8 +29,14 @@ public class MessageAttach extends Message {
 	}
 	
 	
+	MessageAttach(MessageAttach msg){
+		super(msg) ;
+		this.attachement = new HashSet<piece_jointe>(msg.attachement) ;
+	}
+	
+	
 	public String toString() {
-		return(super.toString() +"\n" + "Attachements :" + attachement) ;
+		return(super.toString() +"Attachement :" + attachement + "\n\n") ;
 		
 	}
 	
@@ -53,12 +60,13 @@ public class MessageAttach extends Message {
 				piece_jointe piece = new piece_jointe(); 
 				piece.saisie();
 				
-				//la methode add retourne faux si l'element existe deja dans le set
-				boolean b = attachement.add(piece) ;
-				if(!b) {
+				
+				
+				if(attachement.contains(piece)) {
 					throw(new ExceptionPieceExistante("Cette piece Existe deja dans votre attachement"));
 				}
 				
+				attachement.add(piece) ;
 				tailleattachement += piece.getTaille() ;
 				
 				if(tailleattachement + super.getTaille()>10485760) {

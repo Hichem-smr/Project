@@ -18,7 +18,7 @@ public class AdrProf extends AdrEmail {
 
 	public void saisie() {
 		Scanner scanner = new Scanner(System.in);
-		super.Saisie_AdrEmail();
+		super.saisie();
 		System.out.println("----Veuillez insérez le nom de l'entreprise----");
 		entreprise = scanner.nextLine();
 		

@@ -40,7 +40,7 @@ public class piece_jointe {
 	}
 	@Override
 	public String toString() {
-		return "piece_jointe [nom=" + nom + ", taille=" + taille + "]";
+		return (nom+"-"+taille+"byte");
 	}
 	
 	@Override

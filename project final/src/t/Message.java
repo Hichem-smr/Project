@@ -38,6 +38,14 @@ public class Message {
 		this.etat = etat ;
 		taille = titre.length() + contenu.length();
 	}
+	
+	
+	Message(Message m){
+		this.contenu = m.contenu ;
+		this.titre = m.titre ; 
+		this.creation = m.creation ;
+		this.taille = m.taille ;
+	}
 
 	public Etat getEtat() {
 		return etat;
@@ -45,6 +53,11 @@ public class Message {
 
 	public void setEtat(Etat etat) {
 		this.etat = etat;
+	}
+	
+	
+	public void setEtat(String etat) {
+		this.etat = Etat.valueOf(etat) ;
 	}
 	
 	public boolean equals(Object o) {
@@ -97,8 +110,7 @@ public class Message {
 
 	@Override
 	public String toString() {
-		return "Message [titre=" + titre + ", contenu=" + contenu + ", creation=" + creation + ", etat=" + etat
-				+ ", taille=" + taille + "]";
+		return (titre+"-"+taille+"byte-"+etat.displayvalue+"-" +creation+"\n");
 	}
 	
 	//we need modify message method
@@ -125,7 +137,7 @@ public class Message {
 			int k = scanner.nextInt();
 			switch(k) {
 			case 1 :
-			System.out.println(this.toString());
+			this.afficher();
 			case 2:
 				int f;
 				do {
@@ -133,16 +145,16 @@ public class Message {
 					System.out.println("--1--  Modifier votre Objet ? ----");
 					System.out.println("--2--  Modifier votre Contenu du message ? ----");
 					System.out.println("--3--  EXIT ? ----");
-					 f = scanner.nextInt();
+					 f = scanner.nextInt(); scanner.nextLine() ;
 					 if(f == 1) {
 						 System.out.println("----Veuillez insérez l'objet de votre message----");
-							titre = scanner.next();
+							titre = scanner.nextLine();
 					 } 
 					 else if(f == 2) {
 						 System.out.println("----Veuillez insérez le contenu de votre message----");
-							contenu = scanner.next();
+							contenu = scanner.nextLine();
 					 }
-				} while(f != 1 && f !=2);
+				} while(f != 1 && f !=2 && f!=3);
 				
 			
 			}

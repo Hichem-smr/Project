@@ -40,6 +40,7 @@ public class Prog {
 		adr1[0] = new AdrProf("markzuckerberg","facebook.com","azerfazer12$","médias sociaux","facebook");
 		adr1[1] = new AdrProf("sboukhedouma","usthb.dz","azerfazer12$","Enseignement","usthb");
  
+		AdrEmail adr2 = null;
 		int y = 0;
 		
 		//filling up the addresses hashmap.
@@ -64,21 +65,9 @@ public class Prog {
 		
 		//first you log in
 		if(j == 1) {
-			AdrEmail adr2 = new AdrEmail();
-			adr2.Saisie_AdrEmail();
-			
-			
-//			for(int i = 0 ; i<6 ; i++) {
-//				
-//				System.out.println(adr[i]);
-//				
-//				
-//			}
-//			for(int i =0; i<2; i++) {
-//				System.out.println(adr1[i]);
-//				
-//			}
-//			
+			adr2 = new AdrEmail();
+			adr2.saisie();
+
 			
 			BoiteMsg BoiteMsg = new BoiteMsg();
 			BoiteMsg.envoyerMsg();
@@ -87,7 +76,7 @@ public class Prog {
 			
 			
 		else if(j == 2) {
-			AdrProf adr2 = new AdrProf();
+			adr2 = new AdrProf();
 			adr2.saisie();
 			//write the message first
 			BoiteMsg BoiteMsg = new BoiteMsg();
@@ -95,20 +84,18 @@ public class Prog {
 			adr2.setBoite_de_messagerie(BoiteMsg);
 			
 			//Envoye un message pour un destinataire
-			
-			
-			
+		
 		}
 		
 		} while(j != 1 && j != 2);
 		
 		// need to test if the messages really arrived, and their states from sender and reciever
-		
-
-		
-		
-		
+		System.out.println(adr2.getBoite_de_messagerie().getEnvoyes());
+		System.out.println(adresses.get("sboukhedouma@usthb.dz").getBoite_de_messagerie().getRecus());
 		
 	}
+	
+	
+		
 
 }
