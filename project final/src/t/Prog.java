@@ -38,21 +38,15 @@ public class Prog {
 		adr[4] = new AdrEmail("janneh","live.com","azerfazer12$");
 		adr[5] = new AdrEmail("andale","verizon.net","azerfazer12$");
 		adr1[0] = new AdrProf("markzuckerberg","facebook.com","azerfazer12$","médias sociaux","facebook");
-		adr1[1] = new AdrProf("sboukhedouma","usthb.dz","azerfazer12$","Enseignement","usthb");
- 
+		adr1[1] = new AdrProf("sboukhedouma","usthb.dz","azerfazer12$","Enseignement","usthb"); 
 		AdrEmail adr2 = null;
-		int y = 0;
-		
+		int y = 0;		
 		//filling up the addresses hashmap.
-		for(int i = 0 ; i<6 ; i++) {
-			
-			adresses.put(adr[i].toString(), adr[i]) ;
-			
-			
+		for(int i = 0 ; i<6 ; i++) {			
+			adresses.put(adr[i].toString(), adr[i]) ;						
 		}
 		for(int i =0; i<2; i++) {
-			adresses.put(adr1[i].toString(), adr1[i]);
-			
+			adresses.put(adr1[i].toString(), adr1[i]);	
 		}
 		
 	
@@ -61,37 +55,52 @@ public class Prog {
 		System.out.println("----Veuillez inserez votre Address Email ----");
 		System.out.println("---1- Address email Normal ----");
 		System.out.println("---2- Address Email Professionnel ----");
-		j = scanner.nextInt();
-		
+//		j = scanner.nextInt();
+		j = 1;
 		//first you log in
 		if(j == 1) {
-			adr2 = new AdrEmail();
-			adr2.saisie();
-
+			adr2 = new AdrEmail("hichem", "semmar.com", "azerfaze12$$");
 			
 			BoiteMsg BoiteMsg = new BoiteMsg();
+			System.out.println("Donner votre taille de la boite");
+			int k = scanner.nextInt();
+			BoiteMsg.setCapacité(k);
 			BoiteMsg.envoyerMsg();
 			adr2.setBoite_de_messagerie(BoiteMsg);
+			System.out.println("Sent " + adr2.getBoite_de_messagerie().getEnvoyes());
+			System.out.println("recieved" + adr[5].getBoite_de_messagerie().getRecus());
+			adr2.getBoite_de_messagerie().suprrimerMsg();
+			adr[5].getBoite_de_messagerie().suprrimerMsg();
+			System.out.println("Sent " + adr2.getBoite_de_messagerie().getEnvoyes());
+			System.out.println("recieved" + adr[5].getBoite_de_messagerie().getRecus());
+			
+//			adr2.getBoite_de_messagerie().SpaceAlert();
 		}
 			
 			
 		else if(j == 2) {
 			adr2 = new AdrProf();
 			adr2.saisie();
-			//write the message first
+			System.out.println("Donner votre taille de la boite");
+			int k = scanner.nextInt();
 			BoiteMsg BoiteMsg = new BoiteMsg();
 			BoiteMsg.envoyerMsg();
-			adr2.setBoite_de_messagerie(BoiteMsg);
+			adr2.setBoite_de_messagerie(BoiteMsg);						
+			System.out.println("space left " + adr2.getBoite_de_messagerie().SpaceLeft());
 			
-			//Envoye un message pour un destinataire
 		
 		}
 		
 		} while(j != 1 && j != 2);
 		
 		// need to test if the messages really arrived, and their states from sender and reciever
-		System.out.println(adr2.getBoite_de_messagerie().getEnvoyes());
-		System.out.println(adresses.get("sboukhedouma@usthb.dz").getBoite_de_messagerie().getRecus());
+		
+//		System.out.println(adr2.getBoite_de_messagerie().getEnvoyes());
+//		System.out.println(adresses.get("sboukhedouma@usthb.dz").getBoite_de_messagerie().getRecus());
+		
+		
+		
+		
 		
 	}
 	

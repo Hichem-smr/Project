@@ -18,7 +18,8 @@ public class BoiteMsg {
 	private HashSet<Message> archives ;
 	private HashSet<Message> corbeille;
 	private HashSet<Message> spam ;
-	long capacité;
+	private long capacité;
+	
 	
 	
 	BoiteMsg (){
@@ -89,6 +90,7 @@ public class BoiteMsg {
 		msg.setTitre(msg.getTitre().replace("(NON LU)", ""));
 		msg.setEtat(Etat.ENVOYE);
 		envoyés.add(msg) ;
+		SpaceAlert();
 	}
 	
 	
@@ -184,6 +186,7 @@ public class BoiteMsg {
 			System.out.println("Message supprime");
 			
 		}while(choix!=asupprimer.size()+2 && asupprimer.size()!=0) ;
+		
 	}
 	
 	
@@ -326,6 +329,75 @@ public class BoiteMsg {
 			System.out.println("Message deplace");
 			
 		}while(choix!=adeplacer.size()+2 && adeplacer.size()!=0) ;
+		SpaceAlert();
+	}
+	
+	
+	//untested
+	public void NombreDeMsgs()  {
+		int i = 0;
+		int j = 0;
+		for(Message m : reçus) 	{
+			if(m.getTitre().contains("(NON LU)")) {
+				i++ ;
+				} else j++;
+			}
+		System.out.println("Nombres de Messages Reçu Non Lu : " + i);
+		System.out.println("Nombres de Messages Reçu Lu : " + j);   
+		System.out.println("Nombres de Messages Envoyés : " + envoyés.size() );
+		System.out.println("Nombres de Messages Spams : " + spam.size());
+		System.out.println("Nombres de Messages brouillons : " + brouillons.size() );
+		System.out.println("Nombres de Messages archives : " + archives.size() );
+		System.out.println("Nombres de Messages corbeille : " + corbeille.size() );	
+	}
+	
+	//untested
+	public int SpaceUsed() {
+		int s = 0;
+			for(Message m : reçus) 	
+				{
+					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				}
+				
+			for(Message m : spam) 	
+				{
+					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				}
+			for(Message m : brouillons) 	
+				{
+						s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				}
+			for(Message m : archives) 	
+				{
+						s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				}
+			
+			for(Message m : corbeille) 	
+				{
+					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				}
+			for(Message m : envoyés) 	
+			{
+				s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+			}
+			
+			return s;
+				
+			}
+	
+	//untested	
+	public int SpaceLeft() {
+		int k = (int) capacité - SpaceUsed();
+		return k;
+	}
+		
+	//untested
+	public void SpaceAlert() {
+		if( (int) (capacité*0.8) <= SpaceUsed() ) {
+			System.out.println("				   ****ALERTE !!! *****");
+			System.out.println("IL VOUS RESTE MOIN DE 20% ESPACE DISPONIBLE DANS VOTRE BOITE ");
+			System.out.println("      VOUS DEVEZ SUPPRIMER CERTAINS MESSAGES");
+		}
 	}
 	
 	
@@ -374,4 +446,16 @@ public class BoiteMsg {
 
 		return this.envoyés ;
 	}
+
+
+	public long getCapacité() {
+		return capacité;
+	}
+
+
+	public void setCapacité(long capacité) {
+		this.capacité = capacité;
+	}
+	
+	
 }

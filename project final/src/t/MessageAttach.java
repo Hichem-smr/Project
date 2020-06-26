@@ -12,6 +12,7 @@ public class MessageAttach extends Message {
 	private HashSet<piece_jointe> attachement ;
 	private long tailleattachement =0;
 	
+	
 	MessageAttach(){
 		attachement = new HashSet<piece_jointe>() ;
 		setEtat(Etat.CREE);
@@ -92,6 +93,14 @@ public class MessageAttach extends Message {
 		if(!b) {
 			throw(new ExceptionPieceExistante("Cette piece Existe deja dans votre attachement"));
 		}
+	}
+
+	public long getTailleattachement() {
+		return tailleattachement;
+	}
+
+	public void setTailleattachement(long tailleattachement) {
+		this.tailleattachement = tailleattachement;
 	}
 	
 	
