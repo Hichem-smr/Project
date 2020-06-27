@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.stream.IntStream;
+import java.util.TreeSet;
 
 
 public class MessageAttach extends Message {
@@ -60,9 +61,7 @@ public class MessageAttach extends Message {
 			do {
 				piece_jointe piece = new piece_jointe(); 
 				piece.saisie();
-				
-				
-				
+		
 				if(attachement.contains(piece)) {
 					throw(new ExceptionPieceExistante("Cette piece Existe deja dans votre attachement"));
 				}

@@ -13,6 +13,11 @@ public class Profil {
 	private String pays;
 	private Genre genre;
 	
+	
+	Profil(){
+		
+	}
+	
 	Profil(String nom, String prenom, int age, int numero, String pays, String genre) {
 		this.nom = nom;
 		this.prenom = prenom;

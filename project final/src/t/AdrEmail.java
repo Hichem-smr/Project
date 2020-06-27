@@ -12,6 +12,7 @@ public class AdrEmail {
 	
 	AdrEmail(){
 		boite_de_messagerie = new BoiteMsg();
+		setProfil(new Profil()) ;
 	}
 	
 	
@@ -208,6 +209,16 @@ public class AdrEmail {
 
 	public void setBoite_de_messagerie(BoiteMsg boite_de_messagerie) {
 		this.boite_de_messagerie = boite_de_messagerie;
+	}
+
+
+	public Profil getProfil() {
+		return profil;
+	}
+
+
+	public void setProfil(Profil profil) {
+		this.profil = profil;
 	}
 	
 	

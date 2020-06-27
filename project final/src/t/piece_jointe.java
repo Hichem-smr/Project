@@ -17,10 +17,10 @@ public class piece_jointe {
 	void saisie() throws MoreThan10485760 {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("----Veuillez inserez votre Nom de piece-jointe----");
-		nom = scanner.next();
+		nom = scanner.nextLine();
 		System.out.println("----Veuillez inserez votre taille de piece-jointe En octets----");
 		System.out.println("****HINT : ça ne doit pas dépasser 10 Mo (10485760 octets)");
-		taille = scanner.nextLong();
+		taille = scanner.nextLong(); scanner.nextLine() ;
 		if(taille > 10485760) {
 			throw( new MoreThan10485760("**Votre taille depasse La taille maximum**"));
 		}
@@ -55,11 +55,16 @@ public class piece_jointe {
 		if (nom == null) {
 			if (other.nom != null)
 				return false;
-		} else if (!nom.equals(other.nom))
+		} else if (!nom.contentEquals(other.nom))
 			return false;
 		if (taille != other.taille)
 			return false;
 		return true;
+	}
+	
+	
+	public int hashCode() {
+		return 0;
 	}
 	
 }

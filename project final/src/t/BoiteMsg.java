@@ -39,25 +39,31 @@ public class BoiteMsg {
 	}
 	
 	
-	public void envoyerMsg() throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
+	public void envoyerMsg(MessageAttach msg) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
 		
 		HashMap<String, AdrEmail> adresses = Prog.adresses ;
 		Scanner scanner = new Scanner(System.in) ;
-		MessageAttach msg = new MessageAttach() ;
-		String keydestinataire ;
-		AdrEmail valuedestinataire ;
-		msg.saisie();
+		
+		//Heres the use of the parametre
+		if(msg==null) {
+			msg = new MessageAttach() ;
+			msg.saisie();
+		}
+		//Heres the use of the parametre
 		
 		String titre = msg.getTitre();
 		String contenu = msg.getContenu();
-		System.out.println(titre + contenu);
 		if(titre.isBlank() == true || titre.isEmpty() == true) {
 			if(contenu.isBlank() == true || contenu.isEmpty() == true) {
 				throw new message_vide("**Votre message est vide");
 			}
 		}
 		
-		this.brouillons.add(msg) ;
+		
+		String keydestinataire ;
+		AdrEmail valuedestinataire ;
+		
+		
 		int choix;
 		do {
 			Iterator iterator = Prog.adresses.entrySet().iterator();
@@ -87,7 +93,7 @@ public class BoiteMsg {
 		}while(choix==1) ;
 		
 		//add the message to the "envoyes" folder after succesfully sending it
-		msg.setTitre(msg.getTitre().replace("(NON LU)", ""));
+		msg.setTitre(msg.getTitre().replace(" (NON LU)",""));
 		msg.setEtat(Etat.ENVOYE);
 		envoyés.add(msg) ;
 		SpaceAlert();
@@ -120,7 +126,7 @@ public class BoiteMsg {
 		boolean trouve  = false ;
 		
 		for(Message m : dossier) {
-			if(m.getTitre()==titre) {
+			if(m.getTitre().contentEquals(titre) || m.getTitre().contentEquals(titre+"(NON LU)")) {
 				asupprimer.add(m) ;
 				trouve = true ;
 			}

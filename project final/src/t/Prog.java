@@ -65,7 +65,7 @@ public class Prog {
 			System.out.println("Donner votre taille de la boite");
 			int k = scanner.nextInt();
 			BoiteMsg.setCapacité(k);
-			BoiteMsg.envoyerMsg();
+			BoiteMsg.envoyerMsg(null);
 			adr2.setBoite_de_messagerie(BoiteMsg);
 			System.out.println("Sent " + adr2.getBoite_de_messagerie().getEnvoyes());
 			System.out.println("recieved" + adr[5].getBoite_de_messagerie().getRecus());
@@ -84,7 +84,7 @@ public class Prog {
 			System.out.println("Donner votre taille de la boite");
 			int k = scanner.nextInt();
 			BoiteMsg BoiteMsg = new BoiteMsg();
-			BoiteMsg.envoyerMsg();
+			BoiteMsg.envoyerMsg(null);
 			adr2.setBoite_de_messagerie(BoiteMsg);						
 			System.out.println("space left " + adr2.getBoite_de_messagerie().SpaceLeft());
 			
