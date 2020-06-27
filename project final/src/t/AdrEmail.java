@@ -1,5 +1,6 @@
 package t;
 
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class AdrEmail {
@@ -7,12 +8,11 @@ public class AdrEmail {
 	private String pseudo ;
 	private String site ; 
 	private String mdp ;
-	private Profil profil ;
 	private BoiteMsg boite_de_messagerie ;
 	
 	public AdrEmail(){
 		boite_de_messagerie = new BoiteMsg();
-		setProfil(new Profil()) ;
+		
 	}
 	
 	
@@ -211,15 +211,14 @@ public class AdrEmail {
 		this.boite_de_messagerie = boite_de_messagerie;
 	}
 
-
-	public Profil getProfil() {
-		return profil;
-	}
-
-
-	public void setProfil(Profil profil) {
-		this.profil = profil;
-	}
+	 Comparator<String> SiteComparator = new Comparator<String>() {
+	        @Override public int compare(String s1, String s2) {
+	        	int index1=s1.indexOf("@") + 1;
+	        	int index2=s2.indexOf("@") + 1;
+	            return s1.substring(index1).compareTo(s2.substring(index2));
+	        }           
+	    };
+	
 	
 	
 }

@@ -1,8 +1,13 @@
 package Prog;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 
 import t.AdrEmail;
 import t.AdrProf;
@@ -18,6 +23,7 @@ public class Application {
 		System.out.println("------Voulez vous ?------");
 		int choix;
 		HashMap<String ,AdrEmail> adresses = new HashMap<String ,AdrEmail>() ;
+		HashSet<Profil> Profiles = new HashSet<Profil>() ;
 		do {
 			choix = menu();
 			
@@ -35,21 +41,24 @@ public class Application {
 							if(j == 1) {
 								AdrEmail adr = new AdrEmail();
 								adr.saisie();
-//								System.out.println("----------Creation du profil--------------");
-//								adr.getProfil().saisieProfil();
-								adresses.put(adr.toString(), adr) ;
+								System.out.println("----------Creation du profil--------------");
+								Profil Profil = new Profil();
+								Profil.saisieProfil();
+								Profil.getAdresses().put(adr.toString(), adr);
+								Profiles.add(Profil);
 								
 							}				
 							else if(j == 2) {
 								AdrProf adr = new AdrProf();
 								adr.saisie();
 								System.out.println("----------Creation du profil--------------");
-								adr.getProfil().saisieProfil();
-								adresses.put(adr.toString(), adr) ;
-								
+								Profil Profil = new Profil();
+								Profil.saisieProfil();
+								Profil.getAdresses().put(adr.toString(), adr);
+								Profiles.add(Profil);
 							}				
 						} while(j != 1 && j != 2);
-						System.out.println("--1--insérer d'autre Adresses");
+						System.out.println("--1--insérer d'autre Adresses & Profils");
 						System.out.println("--0--Quitter.");						
 						i = scanner.nextInt();
 					}while(i != 0);
@@ -57,13 +66,84 @@ public class Application {
 					
 					
 				case 2:	
+					System.out.println("------Voulez vous ?------");
+					int choicce;
+					System.out.println("--1--Ajouter Une Adresse Email");
+					System.out.println("--2--Modifier Une Adresse Email");
+					System.out.println("--3--Supprimer Une Adresse Email");
 					
+					choicce = scanner.nextInt();
+					
+					if(choicce == 1) {
+						AdrProf adr = new AdrProf();
+						adr.saisie();
+						adresses.put(adr.toString(), adr);
+						if(Profiles.size() == 0) {
+							System.out.println("Il n'existe pas de Profils pour assigner cette adress");
+						} else {
+							//select profile
+							System.out.println("Veuillez selectionner quel profil Voulez vous assigner cette adresse : ");
+							i = 1;
+							for(Profil profil : Profiles ) {
+								System.out.println(i + "--" + profil.toString());
+								i++;
+							}
+							j = scanner.nextInt(); 		scanner.nextLine();
+							
+							Iterator<Profil> itr = Profiles.iterator();
+							i = 1;
+						    while(itr.hasNext() ){
+						        if(i != j) {
+						        	//loop till finding the specific profil
+						        	i++;
+						        } 
+						        else {
+						        	//profile found 
+						        	//add the address to the profile assigned
+						        	itr.next().getAdresses().put(adr.toString(), adr);	
+						        }
+						    }
+							
+						}
+						
+						
+					} else
+					
+					if(choicce == 2) {
+						String adress ;
+						System.out.println("Veuillez inserer votre adresse à changer : ");
+						adress = scanner.nextLine();
+						if(!adresses.containsKey(adress)) {
+							System.out.println("Cette adresse n'existe pas");
+						} 
+						else 
+						//remove the old addresses because of its toString	key
+						adresses.remove(adress);
+						AdrEmail temp = new AdrProf();
+						temp.saisie();
+						//Adding new modified adress 
+						adresses.put(temp.toString(), temp);
+					}
+						
+					if(choicce == 3) {
+						String adress1 ;
+						System.out.println("Veuillez inserer votre adresse à changer : ");
+						adress1 = scanner.nextLine();
+						if(!adresses.containsKey(adress1)) {
+							System.out.println("Cette adresse n'existe pas");
+						}
+						else
+						adresses.remove(adress1);
+					}
+					
+				break;	
 				case 3:
 					System.out.println("----Veuillez specifier quelle categorie vous voulez afficher----");
 					int choice;
 					do {
 						System.out.println("--1--Pour Adresse Email Standard");
-						System.out.println("--2--Pour adresse Email Professionnel");
+						System.out.println("--2--Pour Adresse Email Professionnel");
+						System.out.println("--3--Pour Un affichage par categorie");
 						choice = scanner.nextInt();
 						
 						if(choice == 1) {
@@ -80,8 +160,17 @@ public class Application {
 								}
 							}
 						}
+						
+						
+						if(choice == 3) {
+							
+							
+							TreeMap <String, AdrEmail> TM = new TreeMap <String, AdrEmail> (adresses);
+							System.out.println(TM);
+						}
+						
 						System.out.println("Fin d'adresses");
-					}while(choice<1 || choice>2);
+					}while(choice<1 || choice>3);
 					
 					break;
 					
@@ -96,7 +185,7 @@ public class Application {
 						k = scanner.nextInt();
 					}
 					BoiteMsg.setCapacité(k);
-					BoiteMsg.
+//					BoiteMsg.
 					
 				case 5:
 					

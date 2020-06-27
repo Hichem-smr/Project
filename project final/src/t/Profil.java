@@ -1,5 +1,6 @@
 package t;
 
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Profil {
@@ -12,9 +13,9 @@ public class Profil {
 	private int numero;
 	private String pays;
 	private Genre genre;
+	HashMap<String ,AdrEmail> Adresses = new HashMap<String ,AdrEmail>() ;
 	
-	
-	Profil(){
+	public Profil(){
 		
 	}
 	
@@ -99,6 +100,14 @@ public class Profil {
 		} else if (!prenom.equals(other.prenom))
 			return false;
 		return true;
+	}
+
+	public HashMap<String, AdrEmail> getAdresses() {
+		return Adresses;
+	}
+
+	public void setAdresses(HashMap<String, AdrEmail> adresses) {
+		Adresses = adresses;
 	}
 	
 	
