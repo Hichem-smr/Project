@@ -6,7 +6,7 @@ public class AdrProf extends AdrEmail {
 	private String entreprise;
 	private String domain;
 	
-	AdrProf(String pseudo , String site , String mdp, String domain , String entreprise) {
+	public AdrProf(String pseudo , String site , String mdp, String domain , String entreprise) {
 		super(pseudo , site , mdp);
 		this.entreprise = entreprise ;
 		this.domain = domain;

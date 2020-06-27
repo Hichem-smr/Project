@@ -22,7 +22,7 @@ public class BoiteMsg {
 	
 	
 	
-	BoiteMsg (){
+	public BoiteMsg (){
 		reçus = new HashSet<Message>();
 		envoyés = new HashSet<Message>();
 		brouillons = new HashSet<Message>();

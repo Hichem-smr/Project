@@ -10,7 +10,7 @@ public class AdrEmail {
 	private Profil profil ;
 	private BoiteMsg boite_de_messagerie ;
 	
-	AdrEmail(){
+	public AdrEmail(){
 		boite_de_messagerie = new BoiteMsg();
 		setProfil(new Profil()) ;
 	}

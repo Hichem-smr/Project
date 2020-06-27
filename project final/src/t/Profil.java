@@ -41,10 +41,10 @@ public class Profil {
 		age = scanner.nextInt();
 		
 		System.out.println("----Veuillez insérez votre Numero de telephone----");
-		numero = scanner.nextInt();
+		numero = scanner.nextInt(); scanner.nextLine();
 		
 		System.out.println("----Veuillez insérez votre Pays----");
-		pays = scanner.nextLine();
+		pays = scanner.nextLine(); 
 		
 		System.out.println("----Veuillez insérez votre Genre----");
 		int k;
@@ -59,7 +59,7 @@ public class Profil {
 			else if(k == 2) {
 				genre = Genre.valueOf("FEMININ");
 			}
-		} while(k != 1 || k != 2);
+		} while(k < 1 || k > 2);
 	}
 
 	@Override

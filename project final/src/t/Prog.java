@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 
-public class Prog {
+ class Prog {
 
 	/*ive made the list of adresses into a static object so it can be accessible everywhere.
 	ive picked hashmap to make it easier to access the adresse u need.
