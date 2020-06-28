@@ -34,7 +34,7 @@ public class BoiteMsg {
 	}
 	
 	
-	void AddReçu(Message message) {
+	public void AddReçu(Message message) {
 		 message.setEtat(Etat.RECU);
 		 message.setTitre(message.getTitre() + "(NON LU)");
 		 reçus.add(message) ;
@@ -411,6 +411,14 @@ public class BoiteMsg {
 		}
 	}
 	
+	public void AfficheBoite() {
+		System.out.println("Messages Reçus : \n" + reçus);
+		System.out.println("Messages spam : \n" + spam);
+		System.out.println("Messages brouillons : \n" + brouillons);
+		System.out.println("Messages archives : \n" + archives);
+		System.out.println("Messages corbeille : \n" + corbeille);
+		System.out.println("Messages envoyés : \n" + envoyés);
+	}
 	
 	public int nbrRecus() {
 		

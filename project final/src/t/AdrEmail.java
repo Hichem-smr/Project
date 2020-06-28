@@ -5,14 +5,14 @@ import java.util.Scanner;
 
 
 public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
-	
+	Scanner scanner = new Scanner(System.in);
 	private String pseudo ;
 	private String site ; 
 	private String mdp ;
 	private BoiteMsg boite_de_messagerie ;
 	
 	public AdrEmail(){
-		boite_de_messagerie = new BoiteMsg();
+		//boite_de_messagerie = new BoiteMsg();
 		
 	}
 	
@@ -117,7 +117,7 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 	
 	public void saisie() {
 		//insertion du pseudo
-		Scanner scanner = new Scanner(System.in);
+		
 		System.out.println("----Veuillez inserez votre Nom d'utilisateur----");
 		int k = 0;
 		do {
@@ -230,5 +230,19 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 	}
 
 
+	public String SaisiePsuedo() {
+		System.out.println("----Veuillez inserez votre Nom d'utilisateur----");
+		int k = 0;
+		String pseudo1;
+		do {
+			if(k != 0) {
+				System.out.println("----Veuillez reinsérez votre Nom d'utilisateur----");
+			}
+			pseudo1 = scanner.nextLine();
+			k = 1;
+		} while(!Verif_pseudo(pseudo1));
+		return pseudo1;
+	}
+	
 }
 

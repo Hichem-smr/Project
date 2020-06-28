@@ -20,8 +20,8 @@ public class MessageAttach extends Message {
 		tailleattachement=0 ;
 	}
 	
-	MessageAttach(String titre , String contenu , Date creation, Etat etat, HashSet<piece_jointe> attachement ){
-		super(titre , contenu , creation , etat );
+	public MessageAttach(String titre , String contenu, String etat, HashSet<piece_jointe> attachement ){
+		super(titre , contenu , etat );
 		this.attachement = attachement ;
 		Iterator it = attachement.iterator() ;
 		

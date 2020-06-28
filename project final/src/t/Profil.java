@@ -1,6 +1,7 @@
 package t;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Profil {
@@ -111,8 +112,15 @@ public class Profil {
 	}
 	
 
-	public int hashCode() {
-		return 0;
+	public void DeleteAdr(String adr) {
+		//return the adress if found else null
+		for (Map.Entry<String, AdrEmail> entry : Adresses.entrySet()) {
+			if(Adresses.containsKey(adr)) {
+				Adresses.remove(adr);
+				
+			}
+		}
+		
 	}
 	
 	
