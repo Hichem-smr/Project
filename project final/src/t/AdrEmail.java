@@ -3,7 +3,8 @@ package t;
 import java.util.Comparator;
 import java.util.Scanner;
 
-public class AdrEmail {
+
+public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 	
 	private String pseudo ;
 	private String site ; 
@@ -16,7 +17,7 @@ public class AdrEmail {
 	}
 	
 	
-	AdrEmail(String pseudo , String site , String mdp){
+	public AdrEmail(String pseudo , String site , String mdp){
 		this.mdp = mdp ;
 		this.pseudo = pseudo ;
 		this.setSite(site) ;
@@ -151,24 +152,18 @@ public class AdrEmail {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AdrEmail other = (AdrEmail) obj;
-		if (pseudo == null) {
-			if (other.pseudo != null)
-				return false;
-		} else if (!pseudo.equals(other.pseudo))
-			return false;
-		if (site == null) {
-			if (other.site != null)
-				return false;
-		} else if (!site.equals(other.site))
-			return false;
-		return true;
+		
+		if(obj==null)
+			return false ;
+		
+		if (obj.getClass() != this.getClass())
+			return false ;
+		
+		AdrEmail o = (AdrEmail) obj ;
+		if(site!=o.site || pseudo!=o.pseudo)
+			return false ;
+		
+		return true ;
 	}
 
 
@@ -211,15 +206,29 @@ public class AdrEmail {
 		this.boite_de_messagerie = boite_de_messagerie;
 	}
 
-	 Comparator<String> SiteComparator = new Comparator<String>() {
-	        @Override public int compare(String s1, String s2) {
-	        	int index1=s1.indexOf("@") + 1;
-	        	int index2=s2.indexOf("@") + 1;
-	            return s1.substring(index1).compareTo(s2.substring(index2));
-	        }           
-	    };
-	
-	
-	
+
+	@Override
+	public int compareTo(AdrEmail arg0) {
+		// TODO Auto-generated method stub
+		
+		if(this.site.compareTo(arg0.site)!=0)
+			return this.site.compareTo(arg0.site);
+		
+		else
+			return this.pseudo.compareTo(arg0.pseudo);
+	}
+
+
+	@Override
+	public int compare(AdrEmail arg0, AdrEmail arg1) {
+		// TODO Auto-generated method stub
+		
+		if (arg0.site.compareTo(arg1.site)!=0)
+			return arg0.site.compareTo(arg1.site);
+		else
+			return arg0.pseudo.compareTo(arg1.pseudo) ;
+	}
+
+
 }
 

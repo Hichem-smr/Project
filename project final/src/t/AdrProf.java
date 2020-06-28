@@ -12,10 +12,12 @@ public class AdrProf extends AdrEmail {
 		this.domain = domain;
 	}
 	
+	
 	public AdrProf() {
 		
 	}
 
+	
 	public void saisie() {
 		Scanner scanner = new Scanner(System.in);
 		super.saisie();
@@ -24,7 +26,6 @@ public class AdrProf extends AdrEmail {
 		
 		System.out.println("----Veuillez insérez le domain du travaille----");
 		domain = scanner.nextLine();
-		
 	}
 	
 	

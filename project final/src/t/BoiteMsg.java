@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Scanner;
 
+import Prog.Application;
+
 public class BoiteMsg {
 	//here's what we'll do,
 	//all messages will be the Type Message Attach, and the user will have the choice
@@ -41,7 +43,7 @@ public class BoiteMsg {
 	
 	public void envoyerMsg(MessageAttach msg) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
 		
-		HashMap<String, AdrEmail> adresses = Prog.adresses ;
+		HashMap<String, AdrEmail> adresses = Application.adresses ;
 		Scanner scanner = new Scanner(System.in) ;
 		
 		//Heres the use of the parametre
@@ -66,7 +68,7 @@ public class BoiteMsg {
 		
 		int choix;
 		do {
-			Iterator iterator = Prog.adresses.entrySet().iterator();
+			Iterator iterator = Application.adresses.entrySet().iterator();
 	        while (iterator.hasNext()){
 	        	Map.Entry Adr = (Map.Entry) iterator.next();
 	        	System.out.println(Adr.getKey());
@@ -165,6 +167,9 @@ public class BoiteMsg {
 				choix= scanner .nextInt() ; scanner.nextLine() ;
 				
 			}while(choix>asupprimer.size()+2 || choix<0);
+			
+			if(choix == asupprimer.size()+2)
+				return ;
 			
 			if(choix == asupprimer.size()+1) {
 				//supprimer tous les messages correspondant.

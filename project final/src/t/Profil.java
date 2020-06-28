@@ -110,6 +110,12 @@ public class Profil {
 		Adresses = adresses;
 	}
 	
+
+	public int hashCode() {
+		return 0;
+	}
+	
+	
 	
 	 
 	

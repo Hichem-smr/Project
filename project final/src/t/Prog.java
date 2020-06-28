@@ -28,7 +28,16 @@ import java.util.Scanner;
 	
 	
 	public static void main(String[] args) throws MoreThan10485760, destinataire_incorrecte, ExceptionPieceExistante, message_vide {
-		Scanner scanner = new Scanner(System.in);
+		
+		
+		AdrEmail adr1 = new AdrEmail () ;
+		AdrEmail adr2 =  new AdrProf() ;
+		
+		System.out.println(adr1 instanceof AdrProf);
+		System.out.println(adr1 instanceof AdrEmail);
+		System.out.println(adr2 instanceof AdrProf);
+		System.out.println(adr2 instanceof AdrEmail);
+		/*Scanner scanner = new Scanner(System.in);
 		AdrEmail adr [] = new AdrEmail [6];
 		AdrProf adr1 [] = new AdrProf [2];
 		adr[0] =  new AdrEmail("shadow","outlook.com","azerfazer12$") ;
@@ -101,7 +110,7 @@ import java.util.Scanner;
 		
 		
 		
-		
+		*/
 	}
 	
 	
