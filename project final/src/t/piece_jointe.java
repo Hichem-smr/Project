@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class piece_jointe {
 	String nom;
 	long taille;
-	piece_jointe(String nom, int taille) {
+	public piece_jointe(String nom, int taille) {
 		this.nom = nom;
 		this.taille = taille;
 	}

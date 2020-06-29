@@ -13,14 +13,21 @@ import java.util.TreeSet;
 import t.AdrEmail;
 import t.AdrProf;
 import t.BoiteMsg;
+import t.ExceptionPieceExistante;
 import t.Message;
+import t.MessageAttach;
+import t.MoreThan10485760;
 import t.Profil;
+import t.destinataire_incorrecte;
+import t.message_vide;
+import t.piece_jointe;
 
 public class Application {
 
 	public static HashMap<String ,AdrEmail> adresses = new HashMap<String ,AdrEmail>() ;
 	public static HashSet<Profil> Profiles = new HashSet<Profil>() ;
-
+	public static HashMap<String ,Message> Messages = new HashMap<String ,Message>() ;
+	
 	public static void creerAdr() {
 		
 		Scanner scanner = new Scanner(System.in) ;
@@ -230,7 +237,7 @@ public class Application {
 	
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide {
 		
 		
 		AdrEmail adr [] = new AdrEmail [6];
@@ -253,7 +260,25 @@ public class Application {
 			adresses.put(adr1[i].toString(), adr1[i]);	
 		}
 		
+		MessageAttach Msg [] = new MessageAttach [5];
+		MessageAttach MsgAttach [] = new MessageAttach [2];
+		Msg[0] = new MessageAttach("Cours Systeme","un cours est programmé samedi à 10h00",null);
+		Msg[1] = new MessageAttach("Cours POO","un cours est programmé samedi à 9h00",null);
+		Msg[2] = new MessageAttach("Cours Archi","un cours est programmé samedi à 14h00",null);
+		Msg[3] = new MessageAttach("Cours Bdd","un cours est programmé samedi à 11h00",null);
+		Msg[4] = new MessageAttach("Cours Python","un cours est programmé samedi à 13h00",null);	
 		
+		piece_jointe piece = new piece_jointe("Serie d'exercices THL",10);
+		MsgAttach[0] = new MessageAttach("Cours THL","un cours est programmé samedi à 8h00",piece);
+		piece = new piece_jointe("Serie d'exercices Anglais",10);
+		MsgAttach[1] = new MessageAttach("Cours Anglais","un cours est programmé samedi à 15h00",piece);
+		
+		for(int i = 0 ; i<4 ; i++) {			
+			Messages.put(Msg[i].getTitre(), Msg[i]) ;						
+		}
+		for(int i =0; i<2; i++) {
+			Messages.put(MsgAttach[i].getTitre(), MsgAttach[i]);	
+		}
 		
 		Scanner scanner = new Scanner(System.in) ;
 		System.out.println("**********BIENVENU AU PROJET FINAL DU MODULE POO*************");
@@ -287,7 +312,7 @@ public class Application {
 				for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
 					BoiteMsg boite_de_messagerie1 = new BoiteMsg();
 					boite_de_messagerie1.setCapacité(k);
-					Message msg = new Message("Bienvenue","","RECU");
+					Message msg = new Message("Bienvenue","");
 					boite_de_messagerie1.AddReçu(msg);
 					entry.getValue().setBoite_de_messagerie(boite_de_messagerie1);
 					
@@ -314,7 +339,7 @@ public class Application {
 							}
 							BoiteMsg.setCapacité(k1);
 							adress.setBoite_de_messagerie(BoiteMsg);	
-							Message msg = new Message("Bienvenue","","RECU");
+							Message msg = new Message("Bienvenue","");
 							BoiteMsg.AddReçu(msg);
 							
 							
@@ -330,7 +355,7 @@ public class Application {
 							}
 							BoiteMsg.setCapacité(k1);
 							adress.setBoite_de_messagerie(BoiteMsg);
-							Message msg = new Message("Bienvenue","","RECU");
+							Message msg = new Message("Bienvenue","");
 							BoiteMsg.AddReçu(msg);
 						}
 						
@@ -361,6 +386,14 @@ public class Application {
 					
 					switch (choice) {
 					case 1:
+//						adr[0].getBoite_de_messagerie().envoyerMsg( Msg[0],"ngedmond@hotmail.com");
+//						adr[1].getBoite_de_messagerie().envoyerMsg( Msg[1],"tedrlord@gmail.com");
+//						adr[2].getBoite_de_messagerie().envoyerMsg( Msg[2],"crobles@gmail.com");
+//						adr[3].getBoite_de_messagerie().envoyerMsg( Msg[3],"janneh@live.com");
+//						adr[4].getBoite_de_messagerie().envoyerMsg( Msg[4],"andale@verizon.net"); 
+						adr[5].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"markzuckerberg@facebook.com");
+						adr1[0].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"sboukhedouma@usthb.dz");
+						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
 						
 						break;
 					case 2:

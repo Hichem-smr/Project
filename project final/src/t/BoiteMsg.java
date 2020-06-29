@@ -41,7 +41,7 @@ public class BoiteMsg {
 	}
 	
 	
-	public void envoyerMsg(MessageAttach msg) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
+	public void envoyerMsg(MessageAttach msg, String keydestinataire) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
 		
 		HashMap<String, AdrEmail> adresses = Application.adresses ;
 		Scanner scanner = new Scanner(System.in) ;
@@ -62,19 +62,21 @@ public class BoiteMsg {
 		}
 		
 		
-		String keydestinataire ;
+//		String keydestinataire ;
 		AdrEmail valuedestinataire ;
 		
 		
 		int choix;
-		do {
+//		do {
 			Iterator iterator = Application.adresses.entrySet().iterator();
 	        while (iterator.hasNext()){
 	        	Map.Entry Adr = (Map.Entry) iterator.next();
 	        	System.out.println(Adr.getKey());
 	        }
-			System.out.println("----Veuillez inserez votre Address Email Destinataires----");
-			keydestinataire = scanner.nextLine() ;
+//			System.out.println("----Veuillez inserez votre Address Email Destinataires----");
+//			keydestinataire = scanner.nextLine() ;
+	        System.out.println("THe address : " + keydestinataire);
+//	        System.out.println(adresses);
 			if(!Prog.adresses.containsKey(keydestinataire)) {
 				throw (new destinataire_incorrecte("L'adresse saisie est incorrecte")) ;
 			}
@@ -84,15 +86,15 @@ public class BoiteMsg {
 			valuedestinataire = adresses.get(keydestinataire) ; //get the AdrMail with key keydistinatiare
 			valuedestinataire.getBoite_de_messagerie().AddReçu(msg2);// add the message to that AdrMail
 			adresses.put(keydestinataire, valuedestinataire) ;//put the updated version with the sent nessage bacl into the hashmap
-			do {
-				System.out.println("----Voulez vous ajouter d'autres destinataires ?---");
-				System.out.println("\t1.Oui\n\t2.Non");
-			
-			
-				choix = scanner.nextInt(); scanner.nextLine();
-			}while(choix!=1 && choix!=2);
+//			do {
+//				System.out.println("----Voulez vous ajouter d'autres destinataires ?---");
+//				System.out.println("\t1.Oui\n\t2.Non");
+//			
+//			
+//				choix = scanner.nextInt(); scanner.nextLine();
+//			}while(choix!=1 && choix!=2);
 		
-		}while(choix==1) ;
+//		}while(choix==1) ;
 		
 		//add the message to the "envoyes" folder after succesfully sending it
 		msg.setTitre(msg.getTitre().replace(" (NON LU)",""));

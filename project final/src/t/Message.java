@@ -30,12 +30,12 @@ public class Message {
 		taille = 0 ;
 	}
 	
-	public Message(String titre, String contenu  , String etat ){
+	public Message(String titre, String contenu ){
 		
 		this.creation = new Date() ;
 		this.titre = titre ;
 		this.contenu = contenu ; 
-		this.etat = Etat.valueOf(etat) ;
+		this.etat = Etat.CREE;
 		taille = titre.length() + contenu.length();
 	}
 	

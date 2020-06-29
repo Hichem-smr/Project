@@ -1,6 +1,7 @@
 package t;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import java.util.TreeSet;
 
 public class MessageAttach extends Message {
 	
-	private HashSet<piece_jointe> attachement ;
+	private HashSet<piece_jointe> attachement =new HashSet<piece_jointe>() ; ;
 	private long tailleattachement =0;
 	
 	
@@ -20,14 +21,17 @@ public class MessageAttach extends Message {
 		tailleattachement=0 ;
 	}
 	
-	public MessageAttach(String titre , String contenu, String etat, HashSet<piece_jointe> attachement ){
-		super(titre , contenu , etat );
-		this.attachement = attachement ;
-		Iterator it = attachement.iterator() ;
-		
-		while(it.hasNext()) {
-			tailleattachement += ((piece_jointe)it.next()).getTaille() ;
+	public MessageAttach(String titre , String contenu, piece_jointe piece_jointe ){
+		super(titre , contenu );
+		attachement.add(piece_jointe);		
+		if(piece_jointe == null) {
+			tailleattachement = 0;
 		}
+		else {
+			tailleattachement = piece_jointe.getTaille();
+		}
+		
+		
 	}
 	
 	
