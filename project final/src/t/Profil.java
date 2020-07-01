@@ -14,7 +14,7 @@ public class Profil {
 	private int numero;
 	private String pays;
 	private Genre genre;
-	HashMap<String ,AdrEmail> Adresses = new HashMap<String ,AdrEmail>() ;
+	static HashMap<String ,AdrEmail> Adresses = new HashMap<String ,AdrEmail>() ;
 	
 	public Profil(){
 		
@@ -121,6 +121,54 @@ public class Profil {
 			}
 		}
 		
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public int getNumero() {
+		return numero;
+	}
+
+	public void setNumero(int numero) {
+		this.numero = numero;
+	}
+
+	public String getPays() {
+		return pays;
+	}
+
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+
+	public Genre getGenre() {
+		return genre;
+	}
+
+	public void setGenre(Genre genre) {
+		this.genre = genre;
 	}
 	
 	

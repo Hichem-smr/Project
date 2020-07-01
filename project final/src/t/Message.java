@@ -1,5 +1,6 @@
 package t;
 
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ enum Etat	{
 	
 }
 
-public class Message {
+public class Message implements Comparator<Message>, Comparable<Message> {
 	
 	Scanner scanner = new Scanner(System.in);
 	private String titre ;
@@ -172,7 +173,24 @@ public class Message {
 		titre = titre.replace("(NON LU)", "");
 	}
 	
+	@Override
+	public int compareTo(Message arg0) {
+		
+		if(this.creation.compareTo(arg0.creation)!=0)
+			return this.creation.compareTo(arg0.creation);
+		
+		else
+			return this.titre.compareTo(arg0.titre);
+	}
 	
-	
+	@Override
+	public int compare(Message arg0, Message arg1) {
+		// TODO Auto-generated method stub
+		
+		if (arg0.creation.compareTo(arg1.creation)!=0)
+			return arg0.creation.compareTo(arg1.creation);
+		else
+			return arg0.titre.compareTo(arg1.titre) ;
+	}
 	
 }	

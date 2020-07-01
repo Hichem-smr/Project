@@ -26,6 +26,9 @@ import t.piece_jointe;
 public class Application {
 
 	public static HashMap<String ,AdrEmail> adresses = new HashMap<String ,AdrEmail>() ;
+	public static HashMap<String ,AdrEmail> Profadresses = new HashMap<String ,AdrEmail>() ;
+	public static HashMap<String ,AdrEmail> Normadresses = new HashMap<String ,AdrEmail>() ;
+	public static ArrayList<String> list = new ArrayList<String>(); 
 	public static HashSet<Profil> Profiles = new HashSet<Profil>() ;
 	public static HashMap<String ,Message> Messages = new HashMap<String ,Message>() ;
 
@@ -383,8 +386,10 @@ public class Application {
 						System.out.println("7. Restaurer un message donné");
 						System.out.println("8. répondre à un message");
 						System.out.println("9. vider un dossier (« spam » ou « envoyés »)");
+						System.out.println("10. trier les messages par date et par objet");
+						System.out.println("11. Quitter");
 						choice = scanner.nextInt() ;
-					}while(choice > 9 || choice < 1);
+					}while(choice > 10 || choice < 1);
 					
 					switch (choice) {
 					case 1:
@@ -605,6 +610,47 @@ public class Application {
 						break;
 						
 					case 10:
+						System.out.println(adresses.keySet());
+						System.out.println("Veuillez inserer votre Adress-Email : ?");
+						scanner.nextLine();
+						adress = scanner.nextLine();
+						System.out.println("Veuillez entrer quel dossier voulez vous Trier ?");
+						System.out.println("--1--Spam ? ");
+						System.out.println("--2--Envoyés ? ");
+						System.out.println("--3--Reçus ?");					
+						System.out.println("--4--brouillons ? ");
+						System.out.println("--5--archives ? ");
+						System.out.println("--6--corbeille ? ");
+						scanner.nextLine();
+						do {
+							
+							choix = scanner.nextInt();
+						}while(choix < 1 || choix > 6);
+						 HashSet dossier = new HashSet(); 
+						switch (choix) {
+						case 1:
+							dossier	= (HashSet) adresses.get(adress).getBoite_de_messagerie().getSpam().clone();
+							break;
+						case 2:
+							dossier = (HashSet) adresses.get(adress).getBoite_de_messagerie().getEnvoyes().clone();
+							break;
+						case 3:
+							dossier = (HashSet) adresses.get(adress).getBoite_de_messagerie().getReçus().clone();
+							break;
+						case 4:
+							dossier	= (HashSet) adresses.get(adress).getBoite_de_messagerie().getBrouillons().clone();
+							break;
+						case 5:
+							dossier	= (HashSet) adresses.get(adress).getBoite_de_messagerie().getArchives().clone();
+							break;
+						case 6:
+							dossier = (HashSet) adresses.get(adress).getBoite_de_messagerie().getCorbeille().clone();
+							break;
+						}
+						TreeSet <Message> SortedMessages = new TreeSet <Message> (dossier);
+						
+						System.out.println(SortedMessages);
+						
 						
 						break;
 						
@@ -615,12 +661,102 @@ public class Application {
 				break;	
 					
 				case 8: 
-				System.out.println("Its the end");
+					do {						
+						System.out.println("1. Afficher toutes les boites ayant reçu un message donné : ");
+						System.out.println("2. Afficher les boites qui sont remplies à plus de 50% de leur capacité : ");
+						System.out.println("3. Eclater la collection des boites en deux collections :");					
+						System.out.println("4. Calcul du pourcentage d'utilisation pour a site donnée : ");
+						System.out.println("5. Afficher les messages ayant des pièces jointes (pour une boite donnée)");
+						System.out.println("6. Rechercher les messages par destinataire, par expéditeur, par mot clé.");
+						System.out.println("7. Afficher les noms, prénoms des profils ayant au moins deux boites de messagerie.");  							
+						System.out.println("8. Vider toutes les boites d’un site donné");
+						choice = scanner.nextInt() ;
+					}while(choice > 8 || choice < 1);
+					switch (choice) {
+					
+					case 1: 
+						System.out.println("Veuillez inserer l'objet de votre message : ?");
+						String message = scanner.nextLine();
+						//all messages must exist in the Messages hashshet
+						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
+							if(entry.getValue().getBoite_de_messagerie().getRecus().contains(Messages.get(message))) {
+								System.out.println(entry.getKey());
+							}
+						}
+						break;
+					case 2: 
+						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
+							if(entry.getValue().getBoite_de_messagerie().getCapacité()*0.5 < entry.getValue().getBoite_de_messagerie().SpaceLeft()) {
+								System.out.println(entry.getKey());
+							}
+						}
+						break;
+					case 3: 
+						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
+							if(!(entry.getValue() instanceof AdrProf)) {
+								Normadresses.put(entry.getKey(), entry.getValue());
+							} else
+							if(entry.getValue() instanceof AdrProf) {
+								Profadresses.put(entry.getKey(), entry.getValue());
+							}
+						}
+						break;
+					case 4: 
+						//haven't intialized the profiles yet
+						
+						
+						System.out.println("Veuillez inserer votre site");
+						String site = scanner.nextLine();
+						int total = 0;
+						for(Profil profile : Profiles) {
+							if(profile.getAge() >= 18 && profile.getAge() <= 35) {
+								
+								for( Map.Entry<String, AdrEmail> entry : profile.getAdresses().entrySet() ) { 
+									if(entry.getValue().getSite().equals(site)) {
+										total++;
+										list.add(String.valueOf(profile.getAge()));
+									}
+								}															
+							}
+						}
+						
+						Map<String, Integer> hm = new HashMap<String, Integer>(); 
+						  
+				        for (String i : list) { 
+				            Integer occurance= hm.get(i); 
+				            hm.put(i, (occurance == null) ? 1 : occurance + 1); 
+				        } 
+				  
+				        // displaying the occurrence of elements in the arraylist 
+				        for (Map.Entry<String, Integer> val : hm.entrySet()) { 
+				            System.out.println("Age : " + val.getKey() + " "
+				                               + "Pourcentage : "
+				                               + ": " + (val.getValue()/total)*100 + "%"); 
+				        } 
+				     
+						 
+						break;
+					case 5: 
+						
+						break;
+					case 6: 
+						break;
+					case 7: 
+						
+						break;
+					case 8: 
+						
+						break;
+					}
+					
+					
 				break;
 				
+				case 9:
+					break;
 				
 			}
-		}while(choix != 8);
+		}while(choix != 9);
 		
 		
 		
@@ -645,9 +781,10 @@ public class Application {
 			System.out.println("5. Ajouter une boite");
 			System.out.println("6. Afficher des boites e-mails (avec leur contenu)");
 			System.out.println("7. Gestion des boites e-mails");
-			System.out.println("8. Quitter");		
+			System.out.println("8. Autres requêtes :");		
+			System.out.println("9. Quitter");
 			z = scanner.nextInt();	
-		}while(z<1 || z>8);
+		}while(z<1 || z>9);
 		return z;
 		
 	}
