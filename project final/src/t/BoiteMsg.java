@@ -37,6 +37,7 @@ public class BoiteMsg {
 		message.setEtat(Etat.ARCHIVE);
 		archives.add(message);
 	}
+	
 	public void AddReçu(Message message) {
 		 message.setEtat(Etat.RECU);
 		 message.setTitre(message.getTitre() + "(NON LU)");
@@ -146,7 +147,7 @@ public class BoiteMsg {
 		if(asupprimer.size()==1) {
 			temp  = asupprimer.get(0);
 			dossier.remove(temp);
-			temp.setEtat(Etat.SUPPRIME);
+			
 			corbeille.add(temp);
 			System.out.println("Message supprime");
 			return  ;
@@ -178,7 +179,7 @@ public class BoiteMsg {
 				//ajouter tous les messages correspondant a corbeille.
 				for(int i = 0 ; i<asupprimer.size() ; i++) {
 					temp = asupprimer.get(i) ;
-					temp.setEtat(Etat.SUPPRIME);
+					
 					asupprimer.set(i, temp);
 				}
 				corbeille.addAll(asupprimer);
@@ -368,29 +369,50 @@ public class BoiteMsg {
 		int s = 0;
 			for(Message m : reçus) 	
 				{
-					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+					if (m instanceof MessageAttach)
+						s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;
+					else
+						s = (int) (m.getTaille()) + s ;
 				}
 				
 			for(Message m : spam) 	
 				{
-					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+					if (m instanceof MessageAttach)
+						s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;
+					else
+						s = (int) (m.getTaille()) + s ;	
 				}
+			
 			for(Message m : brouillons) 	
 				{
-						s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				if (m instanceof MessageAttach)
+					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;
+				else
+					s = (int) (m.getTaille()) + s ;
 				}
+			
 			for(Message m : archives) 	
 				{
-						s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				if (m instanceof MessageAttach)
+					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;
+				else
+					s = (int) (m.getTaille()) + s ;	
 				}
 			
 			for(Message m : corbeille) 	
 				{
-					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				if (m instanceof MessageAttach)
+					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;
+				else
+					s = (int) (m.getTaille()) + s ;	
 				}
+			
 			for(Message m : envoyés) 	
 			{
-				s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;	
+				if (m instanceof MessageAttach)
+					s = (int) (m.getTaille() + ((MessageAttach) m).getTailleattachement()) + s ;
+				else
+					s = (int) (m.getTaille()) + s ;	
 			}
 			
 			return s;

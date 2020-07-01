@@ -166,9 +166,10 @@ public class Message {
 	
 	public void afficher() {
 		
-		titre = titre.replace("(NON LU)", "");
+		
 		System.out.println("Objet : " + titre + "\n");
 		System.out.println("\t" + contenu );
+		titre = titre.replace("(NON LU)", "");
 	}
 	
 	

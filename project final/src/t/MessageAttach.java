@@ -114,6 +114,10 @@ public class MessageAttach extends Message {
 		this.attachement = attachement;
 	}
 	
-	
+	public void afficher() {
+		
+		super.afficher();
+		System.out.println(attachement);
+	}
 	
 }

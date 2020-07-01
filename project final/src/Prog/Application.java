@@ -320,6 +320,7 @@ public class Application {
 				}
 				System.out.println("Boite Emails crée !");
 					break;
+					
 				case 5:
 					//crée une nouvelle boite avec une adresse
 					int j;
