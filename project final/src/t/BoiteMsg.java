@@ -254,6 +254,9 @@ public class BoiteMsg {
 				
 			}while(choix>asupprimer.size()+2 || choix<0);
 			
+			if(choix == asupprimer.size()+2) 
+				return ;
+			
 			if(choix == asupprimer.size()+1) {
 				//supprimer tous les messages correspondant.
 				corbeille.removeAll(asupprimer);

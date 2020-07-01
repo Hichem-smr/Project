@@ -397,17 +397,18 @@ public class Application {
 						adr[5].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"markzuckerberg@facebook.com");
 						adr1[0].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"sboukhedouma@usthb.dz");
 						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
-						
 						break;
+						
 					case 2:
 						System.out.println("Veuillez inserer l'adresse de votre boite-Email : ");
 						System.out.println(adresses.keySet());
 						scanner.nextLine();
 						String adress = scanner.nextLine();
 						adresses.get(adress).getBoite_de_messagerie().AfficheBoite();
-//						System.out.println("Espace Utilisé : " + adresses.get(adress).getBoite_de_messagerie().SpaceUsed());
-//						System.out.println("Espace restant : " + adresses.get(adress).getBoite_de_messagerie().SpaceLeft());
+						System.out.println("Espace Utilisé : " + adresses.get(adress).getBoite_de_messagerie().SpaceUsed());
+						System.out.println("Espace restant : " + adresses.get(adress).getBoite_de_messagerie().SpaceLeft());
 						break;
+						
 					case 3:
 						System.out.println("Veuillez inserer votre adresse Email : ");
 						System.out.println(adresses.keySet());
@@ -420,6 +421,7 @@ public class Application {
 						adresses.get(adressSender).getBoite_de_messagerie().envoyerMsg(msg12, AdressReciever);
 						Messages.put(msg12.getTitre(), msg12);
 						break;
+						
 					case 4:
 						System.out.println("Veuillez inserer l'object de votre message : ");
 						scanner.nextLine();
