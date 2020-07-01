@@ -25,7 +25,7 @@ public class Message {
 	// = titre.length() + contenu.length();
 	
 	
-	Message(){
+	public Message(){
 		etat = Etat.CREE;
 		taille = 0 ;
 	}

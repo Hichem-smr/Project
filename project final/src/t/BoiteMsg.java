@@ -33,7 +33,10 @@ public class BoiteMsg {
 		spam = new HashSet<Message>();
 	}
 	
-	
+	public void AddArchive(Message message) {
+		message.setEtat(Etat.ARCHIVE);
+		archives.add(message);
+	}
 	public void AddReçu(Message message) {
 		 message.setEtat(Etat.RECU);
 		 message.setTitre(message.getTitre() + "(NON LU)");
@@ -41,7 +44,7 @@ public class BoiteMsg {
 	}
 	
 	
-	public void envoyerMsg(MessageAttach msg, String keydestinataire) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
+	public void envoyerMsg(Message msg, String keydestinataire) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide{
 		
 		HashMap<String, AdrEmail> adresses = Application.adresses ;
 		Scanner scanner = new Scanner(System.in) ;
@@ -68,19 +71,15 @@ public class BoiteMsg {
 		
 		int choix;
 //		do {
-			Iterator iterator = Application.adresses.entrySet().iterator();
-	        while (iterator.hasNext()){
-	        	Map.Entry Adr = (Map.Entry) iterator.next();
-	        	System.out.println(Adr.getKey());
-	        }
+			Iterator iterator = Application.adresses.entrySet().iterator();	       
 //			System.out.println("----Veuillez inserez votre Address Email Destinataires----");
 //			keydestinataire = scanner.nextLine() ;
-	        System.out.println("THe address : " + keydestinataire);
+//	        System.out.println("THe address : " + keydestinataire);
 //	        System.out.println(adresses);
-			if(!Prog.adresses.containsKey(keydestinataire)) {
+			if(!Application.adresses.containsKey(keydestinataire)) {
 				throw (new destinataire_incorrecte("L'adresse saisie est incorrecte")) ;
 			}
-			MessageAttach msg2 = new MessageAttach(msg) ;
+			Message msg2 = new Message(msg) ;
 			msg2.setEtat(Etat.RECU);
 			msg.setTitre(msg.getTitre()+" (NON LU)");
 			valuedestinataire = adresses.get(keydestinataire) ; //get the AdrMail with key keydistinatiare
@@ -100,7 +99,7 @@ public class BoiteMsg {
 		msg.setTitre(msg.getTitre().replace(" (NON LU)",""));
 		msg.setEtat(Etat.ENVOYE);
 		envoyés.add(msg) ;
-		SpaceAlert();
+//		SpaceAlert();
 	}
 	
 	
@@ -476,6 +475,54 @@ public class BoiteMsg {
 
 	public void setCapacité(long capacité) {
 		this.capacité = capacité;
+	}
+
+	public HashSet<Message> getCorbeille() {
+		return corbeille;
+	}
+
+	public void setCorbeille(HashSet<Message> corbeille) {
+		this.corbeille = corbeille;
+	}
+
+	public HashSet<Message> getReçus() {
+		return reçus;
+	}
+
+	public void setReçus(HashSet<Message> reçus) {
+		this.reçus = reçus;
+	}
+
+	public HashSet<Message> getEnvoyés() {
+		return envoyés;
+	}
+
+	public void setEnvoyés(HashSet<Message> envoyés) {
+		this.envoyés = envoyés;
+	}
+
+	public HashSet<Message> getBrouillons() {
+		return brouillons;
+	}
+
+	public void setBrouillons(HashSet<Message> brouillons) {
+		this.brouillons = brouillons;
+	}
+
+	public HashSet<Message> getArchives() {
+		return archives;
+	}
+
+	public void setArchives(HashSet<Message> archives) {
+		this.archives = archives;
+	}
+
+	public HashSet<Message> getSpam() {
+		return spam;
+	}
+
+	public void setSpam(HashSet<Message> spam) {
+		this.spam = spam;
 	}
 	
 	

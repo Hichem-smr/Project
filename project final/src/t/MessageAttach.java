@@ -15,7 +15,7 @@ public class MessageAttach extends Message {
 	private long tailleattachement =0;
 	
 	
-	MessageAttach(){
+	public MessageAttach(){
 		attachement = new HashSet<piece_jointe>() ;
 		setEtat(Etat.CREE);
 		tailleattachement=0 ;
@@ -104,6 +104,14 @@ public class MessageAttach extends Message {
 
 	public void setTailleattachement(long tailleattachement) {
 		this.tailleattachement = tailleattachement;
+	}
+
+	public HashSet<piece_jointe> getAttachement() {
+		return attachement;
+	}
+
+	public void setAttachement(HashSet<piece_jointe> attachement) {
+		this.attachement = attachement;
 	}
 	
 	

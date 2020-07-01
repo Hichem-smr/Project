@@ -1,6 +1,7 @@
 package Prog;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,7 +28,7 @@ public class Application {
 	public static HashMap<String ,AdrEmail> adresses = new HashMap<String ,AdrEmail>() ;
 	public static HashSet<Profil> Profiles = new HashSet<Profil>() ;
 	public static HashMap<String ,Message> Messages = new HashMap<String ,Message>() ;
-	
+
 	public static void creerAdr() {
 		
 		Scanner scanner = new Scanner(System.in) ;
@@ -260,13 +261,13 @@ public class Application {
 			adresses.put(adr1[i].toString(), adr1[i]);	
 		}
 		
-		MessageAttach Msg [] = new MessageAttach [5];
+		Message Msg [] = new Message [5];
 		MessageAttach MsgAttach [] = new MessageAttach [2];
-		Msg[0] = new MessageAttach("Cours Systeme","un cours est programmé samedi à 10h00",null);
-		Msg[1] = new MessageAttach("Cours POO","un cours est programmé samedi à 9h00",null);
-		Msg[2] = new MessageAttach("Cours Archi","un cours est programmé samedi à 14h00",null);
-		Msg[3] = new MessageAttach("Cours Bdd","un cours est programmé samedi à 11h00",null);
-		Msg[4] = new MessageAttach("Cours Python","un cours est programmé samedi à 13h00",null);	
+		Msg[0] = new Message("Cours Systeme","un cours est programmé samedi à 10h00");
+		Msg[1] = new Message("Cours POO","un cours est programmé samedi à 9h00");
+		Msg[2] = new Message("Cours Archi","un cours est programmé samedi à 14h00");
+		Msg[3] = new Message("Cours Bdd","un cours est programmé samedi à 11h00");
+		Msg[4] = new Message("Cours Python","un cours est programmé samedi à 13h00");	
 		
 		piece_jointe piece = new piece_jointe("Serie d'exercices THL",10);
 		MsgAttach[0] = new MessageAttach("Cours THL","un cours est programmé samedi à 8h00",piece);
@@ -386,40 +387,224 @@ public class Application {
 					
 					switch (choice) {
 					case 1:
-//						adr[0].getBoite_de_messagerie().envoyerMsg( Msg[0],"ngedmond@hotmail.com");
-//						adr[1].getBoite_de_messagerie().envoyerMsg( Msg[1],"tedrlord@gmail.com");
-//						adr[2].getBoite_de_messagerie().envoyerMsg( Msg[2],"crobles@gmail.com");
-//						adr[3].getBoite_de_messagerie().envoyerMsg( Msg[3],"janneh@live.com");
-//						adr[4].getBoite_de_messagerie().envoyerMsg( Msg[4],"andale@verizon.net"); 
+						
+						adr[0].getBoite_de_messagerie().envoyerMsg( Msg[0],"ngedmond@hotmail.com");
+						adr[1].getBoite_de_messagerie().envoyerMsg( Msg[1],"tedrlord@gmail.com");
+						adr[2].getBoite_de_messagerie().envoyerMsg( Msg[2],"crobles@gmail.com");
+						adr[3].getBoite_de_messagerie().envoyerMsg( Msg[3],"janneh@live.com");
+						adr[4].getBoite_de_messagerie().envoyerMsg( Msg[4],"andale@verizon.net"); 
 						adr[5].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"markzuckerberg@facebook.com");
 						adr1[0].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"sboukhedouma@usthb.dz");
 						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
 						
 						break;
 					case 2:
-						
+						System.out.println("Veuillez inserer l'adresse de votre boite-Email : ");
+						System.out.println(adresses.keySet());
+						scanner.nextLine();
+						String adress = scanner.nextLine();
+						adresses.get(adress).getBoite_de_messagerie().AfficheBoite();
+//						System.out.println("Espace Utilisé : " + adresses.get(adress).getBoite_de_messagerie().SpaceUsed());
+//						System.out.println("Espace restant : " + adresses.get(adress).getBoite_de_messagerie().SpaceLeft());
 						break;
 					case 3:
-						
+						System.out.println("Veuillez inserer votre adresse Email : ");
+						System.out.println(adresses.keySet());
+						scanner.nextLine();
+						String adressSender = scanner.nextLine();
+						System.out.println("Veuillez inserer votre adresse destinataire");
+						String AdressReciever = scanner.nextLine();
+						MessageAttach msg12 = new MessageAttach() ;
+						msg12.saisie();
+						adresses.get(adressSender).getBoite_de_messagerie().envoyerMsg(msg12, AdressReciever);
+						Messages.put(msg12.getTitre(), msg12);
 						break;
 					case 4:
-						
+						System.out.println("Veuillez inserer l'object de votre message : ");
+						scanner.nextLine();
+						String MessageTitre = scanner.nextLine();
+						if(Messages.containsKey(MessageTitre)) {
+							System.out.println("Titre : "   + Messages.get(MessageTitre).getTitre());
+							System.out.println("Contenu : " + Messages.get(MessageTitre).getContenu());
+						} else 
+							System.out.println("Ce message n'existe Pas");
 						break;
 					case 5:
+						System.out.println("Veuillez inserer votre adresse Email : ");
+						System.out.println(adresses.keySet());
+						scanner.nextLine();
+						adressSender = scanner.nextLine();
+						System.out.println("Veuillez inserer l'object de votre message a supprimer : ");
+						scanner.nextLine();
+						MessageTitre = scanner.nextLine();
+						if(Messages.containsKey(MessageTitre)) {
+							adresses.get(MessageTitre).getBoite_de_messagerie().suprrimerMsg();
+						} else 
+							System.out.println("Ce message n'existe Pas");
 						
 						break;
 					case 6:
-						
+						do {
+							System.out.println(adresses.keySet() + "\n");
+							System.out.println("Veuillez inserer votre Adresse Email : ?");
+							scanner.nextLine();
+							adress = scanner.nextLine();
+							Date datee = null;							
+							
+							if(datee == null) {
+								System.out.println("Veuillez inserer votre date : ");
+								int sec,hour,day,month,year,min;
+								
+								System.out.println("Année : ?");
+								year = scanner.nextInt();
+								
+								System.out.println("Mois : ?");
+								month = scanner.nextInt();
+								
+															
+								System.out.println("Jour : ?");
+								day = scanner.nextInt();
+								
+								System.out.println("Heure : ?");
+								hour = scanner.nextInt();
+								
+								System.out.println("Min : ?");
+								min = scanner.nextInt();
+								
+								System.out.println("Seconde : ?");
+								sec = scanner.nextInt();
+								
+								datee = new Date(year, month, min, hour, min, sec); 
+							}
+							
+							//msg isnt deleted after the archive add 
+							for(Message message : adresses.get(adress).getBoite_de_messagerie().getRecus()) {
+								if(message.getCreation().before(datee)) {
+									 adresses.get(adress).getBoite_de_messagerie().AddArchive(message);
+								}
+							}
+							
+							System.out.println("Voulez vous ajouter d'autre Adresses?");
+							System.out.println("--1-- Oui");
+							System.out.println("--2-- Non");
+							scanner.nextLine();
+							choice = scanner.nextInt();
+							
+							
+							
+						}while(choice != 2);
 						break;
 					case 7:
+						System.out.println("Veuillez inserer l'objet de votre message a restaurer");
+						scanner.nextLine();
+						adress = scanner.nextLine();
+						if(adresses.get(adress).getBoite_de_messagerie().getCorbeille().contains(adress)) {
+							System.out.println("A quel dossier voulez vous restaurer ce message : ?");
+							System.out.println("--1--Reçus");
+							System.out.println("--2--Envoyés");
+							scanner.nextLine();
+							choice = scanner.nextInt();
+							if(choice == 1) {
+								adresses.get(adress).getBoite_de_messagerie().getReçus().add(Messages.get(adress));
+							} else 
+								
+							if(choice == 2) {
+								adresses.get(adress).getBoite_de_messagerie().getEnvoyés().add(Messages.get(adress));
+							}
+							//remove the message from corbeille
+							adresses.get(adress).getBoite_de_messagerie().getCorbeille().remove(Messages.get(adress));
+							
+						} else 
+							System.out.println("Ce message n'existe pas");
+						
+						
 						
 						break;
 					case 8:
+						System.out.println("Veuillez inserer votre adress Email : ");
+						scanner.nextLine();
+						adress = scanner.nextLine();
+						System.out.println("Veuillez inserer l'objet du message : ");
+						scanner.nextLine();
+						String message = scanner.nextLine();
+						if(!adresses.get(adress).getBoite_de_messagerie().getRecus().contains(message)) {
+							System.out.println("Ce message n'as pas été reçu pas");
+						} else {
+							
+							if(Messages.get(message) instanceof Message) {
+								Message msg3 = new Message();
+								
+								msg3.setTitre("re-".concat(Messages.get(message).getTitre()));
+								System.out.println("Veuillez saisir votre reponse : ");
+								String contenu = scanner.nextLine();
+								msg3.setContenu(contenu);
+								Messages.put(msg3.toString(), msg3);
+								//for every adress, if the objject sent is the same as recieved in the last email means it was a sender
+								//and it will recieve an answer 
+								for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
+									for(Message message1 : adresses.get(entry.getValue()).getBoite_de_messagerie().getEnvoyes()) {
+										// si le titre est equivalent
+										if(message1.getTitre().equals(message)) {
+											entry.getValue().getBoite_de_messagerie().AddReçu(msg3);
+										}
+									}
+								}
+							} 
+								//else
+//							
+//							if(Messages.get(message) instanceof MessageAttach) {
+//								
+//								Message msg3 = new MessageAttach("re-".concat(Messages.get(message).getTitre()), "",Messages.get(message).get) );
+//								msg3.setTitre("re-".concat(Messages.get(message).getTitre()));
+//								System.out.println("Veuillez saisir votre reponse : ");
+//								String contenu = scanner.nextLine();
+//								
+//								for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
+//									for(Message message1 : adresses.get(entry.getValue()).getBoite_de_messagerie().getEnvoyes()) {
+//										// si le titre est equivalent
+//										if(message1.getTitre().equals(message)) {
+//											
+//										}
+//									}
+//								}
+//							}
+							
+							
+								
+						}	
+							
+						
+						
 						
 						break;
 					case 9:
+						System.out.println("Veuillez inserer votre adress Email : ");
+						scanner.nextLine();
+						adress = scanner.nextLine();
+						System.out.println("Veuillez entrer quel dossier voulez vous supprimer ?");
+						System.out.println("--1--Spam ? ");
+						System.out.println("--2--Envoyés ? ");
+						scanner.nextLine();
+						choice = scanner.nextInt();
+						if(choice == 1) {
+							for(Message msg : adresses.get(adress).getBoite_de_messagerie().getSpam() ) {
+								
+								adresses.get(adress).getBoite_de_messagerie().getSpam().remove(msg);
+								Messages.remove(msg);
+							}
+						} else 
+						if(choice == 2) {
+							for(Message msg : adresses.get(adress).getBoite_de_messagerie().getEnvoyés() ) {
+								adresses.get(adress).getBoite_de_messagerie().getEnvoyés().remove(msg);
+								Messages.remove(msg);
+							}
+						}
+						break;
+						
+					case 10:
 						
 						break;
+						
 					}
 					
 					
