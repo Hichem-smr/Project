@@ -737,15 +737,99 @@ public class Application {
 						 
 						break;
 					case 5: 
+						System.out.println("Veuillez inserer l'adresse de votre boite-Email : ");
+						System.out.println(adresses.keySet());
+						scanner.nextLine();
+						String adrress = scanner.nextLine();
+						
+						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getReçus() ) {
+							if((message1 instanceof MessageAttach)) {
+								if(((MessageAttach) message1).getAttachement() != null) {
+									message1.afficher();
+								}
+							}
+						}
+						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getBrouillons() ) {     
+							if((message1 instanceof MessageAttach)) {
+								if(((MessageAttach) message1).getAttachement() != null) {
+									message1.afficher();
+								}
+							}
+						}
+						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getEnvoyes() ) {
+							if((message1 instanceof MessageAttach)) {
+								if(((MessageAttach) message1).getAttachement() != null) {
+									message1.afficher();
+								}
+							}
+						}
+						
+						
 						
 						break;
 					case 6: 
-						break;
-					case 7: 
+						System.out.println("----Voulez vous : ?----");
+						scanner.nextLine();
+						do {
+						System.out.println("--1--Rechercher par Destinataire ?");
+						System.out.println("--2--Rechercher par Expéditeur ?");
+						System.out.println("--3--Rechercher par un mot Clé ?");
 						
+						choix = scanner.nextInt();
+						}while(choix < 1 || choix > 3);
+						
+						switch(choix) {
+						case 1:
+							System.out.println("Veuillez inserer votre adresse Destinataire : ");
+							String destinataire = scanner.nextLine();
+							adresses.get(destinataire).getBoite_de_messagerie().getRecus();
+							
+							break;
+						case 2:
+							System.out.println("Veuillez inserer votre adresse Expediteur : ");
+							String expediteur = scanner.nextLine();
+							adresses.get(expediteur).getBoite_de_messagerie().getEnvoyes();
+							
+							break;
+						case 3:
+							System.out.println("Veuillez inserer votre Mot clé : ");
+							String clé = scanner.nextLine();
+							
+							for(Map.Entry<String, Message> entry :  Messages.entrySet()) {
+								if(entry.getValue().getTitre().contains(clé) || entry.getValue().getContenu().contains(clé)) {
+									entry.getValue().afficher();
+								}
+							}
+							
+							break;
+						}
+						
+						break;
+						
+						
+						
+						
+					case 7: 
+						for(Profil profil : Profiles) {
+							if(profil.getAdresses().size() < 2) {
+								
+								System.out.println("Nom : " + profil.getNom());
+								System.out.println("Prenom : " + profil.getPrenom());
+								
+							}
+						}
 						break;
 					case 8: 
-						
+						System.out.println("Veuillez inserer votre site : ?");
+						scanner.nextLine();
+						site = scanner.nextLine();
+						//every adress MUST be in the adresses hashmap
+						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
+							if(entry.getValue().getSite().equals(site)) {
+								BoiteMsg temp = new BoiteMsg();
+								entry.getValue().setBoite_de_messagerie(temp);
+							}
+						}
 						break;
 					}
 					

@@ -193,4 +193,19 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 			return arg0.titre.compareTo(arg1.titre) ;
 	}
 	
+	public boolean expediteur() {
+		if(this.etat.equals(Etat.ENVOYE)) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean destinataire() {
+		if(this.etat.equals(Etat.RECU)) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }	
