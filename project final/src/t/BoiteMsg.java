@@ -1,6 +1,7 @@
 package t;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -194,7 +195,6 @@ public class BoiteMsg {
 			asupprimer.remove(temp) ; //supprimer le message supprimer de la liste des messages correspondants.
 			
 			//ajouter le message supprime a la corbeile.
-			temp.setEtat(Etat.SUPPRIME);
 			corbeille.add(temp);	
 			System.out.println("Message supprime");
 			
@@ -365,6 +365,45 @@ public class BoiteMsg {
 		System.out.println("Nombres de Messages brouillons : " + brouillons.size() );
 		System.out.println("Nombres de Messages archives : " + archives.size() );
 		System.out.println("Nombres de Messages corbeille : " + corbeille.size() );	
+	}
+	
+	
+	public void archiver() {
+		
+		Scanner scanner = new Scanner(System.in) ;
+	
+		System.out.println("----Insérer la date pour laquelle les messages seront archivés--");
+		Date date ;
+		
+		int day,month,year;
+		
+		System.out.println("Année : ?");
+		year = scanner.nextInt();
+		
+		System.out.println("Mois : ?");
+		month = scanner.nextInt();
+					
+		System.out.println("Jour : ?");
+		day = scanner.nextInt();
+
+		date = new Date(year, month, day) ; 
+		
+		for(Message m : this.reçus) {
+			if(m.getCreation().before(date)) {
+				this.reçus.remove(m);
+				m.setEtat(Etat.ARCHIVE);
+				this.archives.add(m);
+			}
+		}
+		
+		for(Message m : this.envoyés) {
+			if(m.getCreation().before(date)) {
+				this.envoyés.remove(m);
+				m.setEtat(Etat.ARCHIVE);
+				this.archives.add(m);
+			}
+		}
+		
 	}
 	
 	//untested

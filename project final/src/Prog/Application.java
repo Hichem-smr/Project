@@ -22,6 +22,8 @@ import t.Profil;
 import t.destinataire_incorrecte;
 import t.message_vide;
 import t.piece_jointe;
+import t.Etat;
+
 
 public class Application {
 
@@ -432,102 +434,95 @@ public class Application {
 						scanner.nextLine();
 						String MessageTitre = scanner.nextLine();
 						if(Messages.containsKey(MessageTitre)) {
-							System.out.println("Titre : "   + Messages.get(MessageTitre).getTitre());
-							System.out.println("Contenu : " + Messages.get(MessageTitre).getContenu());
+							Messages.get(MessageTitre).afficher();
 						} else 
 							System.out.println("Ce message n'existe Pas");
 						break;
+						
 					case 5:
 						System.out.println("Veuillez inserer votre adresse Email : ");
 						System.out.println(adresses.keySet());
 						scanner.nextLine();
 						adressSender = scanner.nextLine();
-						System.out.println("Veuillez inserer l'object de votre message a supprimer : ");
-						scanner.nextLine();
-						MessageTitre = scanner.nextLine();
-						if(Messages.containsKey(MessageTitre)) {
-							adresses.get(MessageTitre).getBoite_de_messagerie().suprrimerMsg();
-						} else 
-							System.out.println("Ce message n'existe Pas");
+						
+						if(!adresses.containsKey(adressSender)) {
+							System.out.println("Cette adresse n'existe pas");
+							break ;
+						}
+						
+						int corbeille ;
+						do {
+							System.out.println("Ce message se trouve t'il dans la corbeille ?");
+							System.out.println("\t1.Oui\n\t2.Non");
+							corbeille= scanner.nextInt() ; scanner.nextLine(); 
+						}while(corbeille!=1 && corbeille!=2) ;
+						
+						if(corbeille==2) 
+							adresses.get(adressSender).getBoite_de_messagerie().suprrimerMsg();
+						
+						else 
+							adresses.get(adressSender).getBoite_de_messagerie().supprimerCorbeille();
 						
 						break;
+						
 					case 6:
 						do {
 							System.out.println(adresses.keySet() + "\n");
 							System.out.println("Veuillez inserer votre Adresse Email : ?");
 							scanner.nextLine();
 							adress = scanner.nextLine();
-							Date datee = null;							
+											
+							if(adresses.containsKey(adress)) 
+								adresses.get(adress).getBoite_de_messagerie().archiver();
 							
-							if(datee == null) {
-								System.out.println("Veuillez inserer votre date : ");
-								int sec,hour,day,month,year,min;
-								
-								System.out.println("Année : ?");
-								year = scanner.nextInt();
-								
-								System.out.println("Mois : ?");
-								month = scanner.nextInt();
-								
-															
-								System.out.println("Jour : ?");
-								day = scanner.nextInt();
-								
-								System.out.println("Heure : ?");
-								hour = scanner.nextInt();
-								
-								System.out.println("Min : ?");
-								min = scanner.nextInt();
-								
-								System.out.println("Seconde : ?");
-								sec = scanner.nextInt();
-								
-								datee = new Date(year, month, min, hour, min, sec); 
-							}
-							
-							//msg isnt deleted after the archive add 
-							for(Message message : adresses.get(adress).getBoite_de_messagerie().getRecus()) {
-								if(message.getCreation().before(datee)) {
-									 adresses.get(adress).getBoite_de_messagerie().AddArchive(message);
-								}
-							}
+							else
+								System.out.println("Adress non existante");
 							
 							System.out.println("Voulez vous ajouter d'autre Adresses?");
 							System.out.println("--1-- Oui");
 							System.out.println("--2-- Non");
 							scanner.nextLine();
-							choice = scanner.nextInt();
-							
-							
-							
+							choice = scanner.nextInt(); scanner.nextLine();
+					
 						}while(choice != 2);
 						break;
+						
 					case 7:
-						System.out.println("Veuillez inserer l'objet de votre message a restaurer");
+						
+						System.out.println(adresses.keySet() + "\n");
+						System.out.println("Veuillez inserer votre Adresse Email : ?");
 						scanner.nextLine();
 						adress = scanner.nextLine();
-						if(adresses.get(adress).getBoite_de_messagerie().getCorbeille().contains(adress)) {
-							System.out.println("A quel dossier voulez vous restaurer ce message : ?");
-							System.out.println("--1--Reçus");
-							System.out.println("--2--Envoyés");
-							scanner.nextLine();
-							choice = scanner.nextInt();
-							if(choice == 1) {
-								adresses.get(adress).getBoite_de_messagerie().getReçus().add(Messages.get(adress));
-							} else 
+						if(!(adresses.containsKey(adress))) {
+							System.out.println("Adress non exitante");
+							break ;
+						}
+						
+						System.out.println("Veuillez inserer l'objet de votre message a restaurer");
+						scanner.nextLine();
+						String msg_arestaurer = scanner.nextLine();
+						
+						
+						for(Message m : adresses.get(adress).getBoite_de_messagerie().getCorbeille()) {
+							if(m.getTitre()==msg_arestaurer || m.getTitre()==msg_arestaurer+" (NON LU)") {
+								if(m.getEtat()== Etat.ENVOYE) {
+									adresses.get(adress).getBoite_de_messagerie().getCorbeille().remove(m);
+									adresses.get(adress).getBoite_de_messagerie().getEnvoyes().add(m);
+									System.out.println("Message restaure");
+									break ;
+								}
 								
-							if(choice == 2) {
-								adresses.get(adress).getBoite_de_messagerie().getEnvoyés().add(Messages.get(adress));
+								else if(m.getEtat()== Etat.RECU) {
+									adresses.get(adress).getBoite_de_messagerie().getCorbeille().remove(m);
+									adresses.get(adress).getBoite_de_messagerie().getRecus().add(m);
+									System.out.println("Message restaure");
+									break ;
+								}
 							}
-							//remove the message from corbeille
-							adresses.get(adress).getBoite_de_messagerie().getCorbeille().remove(Messages.get(adress));
-							
-						} else 
-							System.out.println("Ce message n'existe pas");
-						
-						
+						}
 						
 						break;
+						
 					case 8:
 						System.out.println("Veuillez inserer votre adress Email : ");
 						scanner.nextLine();

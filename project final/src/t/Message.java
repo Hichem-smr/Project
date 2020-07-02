@@ -4,16 +4,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
 
-enum Etat	{
-	CREE("Créé") , ENVOYE("Envoyé") , RECU("Reçu") , EN_COURS("En cours") , 
-	STOCKE("Stocké") , SUPPRIME("Supprimé") , ARCHIVE("Archivé") , RETOURNE("Retourné");
-	
-	String displayvalue ;
-	Etat(String displayvalue){
-		this.displayvalue= displayvalue;
-	}
-	
-}
+
 
 public class Message implements Comparator<Message>, Comparable<Message> {
 	

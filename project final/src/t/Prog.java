@@ -33,10 +33,9 @@ import java.util.Scanner;
 		AdrEmail adr1 = new AdrEmail () ;
 		AdrEmail adr2 =  new AdrProf() ;
 		
-		System.out.println(adr1 instanceof AdrProf);
-		System.out.println(adr1 instanceof AdrEmail);
-		System.out.println(adr2 instanceof AdrProf);
-		System.out.println(adr2 instanceof AdrEmail);
+		System.out.println(adr1.getClass());
+		System.out.println(adr2.getClass());
+		
 		/*Scanner scanner = new Scanner(System.in);
 		AdrEmail adr [] = new AdrEmail [6];
 		AdrProf adr1 [] = new AdrProf [2];
