@@ -1,6 +1,7 @@
 package Prog;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.TreeSet;
 import t.AdrEmail;
 import t.AdrProf;
 import t.BoiteMsg;
+import t.Comparateur;
 import t.ExceptionPieceExistante;
 import t.Message;
 import t.MessageAttach;
@@ -475,14 +477,15 @@ public class Application {
 							if(adresses.containsKey(adress)) 
 								adresses.get(adress).getBoite_de_messagerie().archiver();
 							
-							else
+							else do {
 								System.out.println("Adress non existante");
 							
-							System.out.println("Voulez vous ajouter d'autre Adresses?");
-							System.out.println("--1-- Oui");
-							System.out.println("--2-- Non");
-							scanner.nextLine();
-							choice = scanner.nextInt(); scanner.nextLine();
+								System.out.println("Voulez vous ajouter d'autre Adresses?");
+								System.out.println("--1-- Oui");
+								System.out.println("--2-- Non");
+								scanner.nextLine();
+								choice = scanner.nextInt(); scanner.nextLine();
+							}while(choice != 2 && choice != 1);
 					
 						}while(choice != 2);
 						break;
@@ -519,88 +522,72 @@ public class Application {
 									break ;
 								}
 							}
-						}
-						
+						}						
 						break;
 						
 					case 8:
 						System.out.println("Veuillez inserer votre adress Email : ");
 						scanner.nextLine();
 						adress = scanner.nextLine();
+						if(!(adresses.containsKey(adress))) {
+							System.out.println("Adress invalide");
+							break ;
+						}
+							
+						AdrEmail repondeur = adresses.get(adress) ; 
 						System.out.println("Veuillez inserer l'objet du message : ");
 						scanner.nextLine();
 						String message = scanner.nextLine();
-						if(!adresses.get(adress).getBoite_de_messagerie().getRecus().contains(message)) {
-							System.out.println("Ce message n'as pas été reçu pas");
-						} else {
-							
-							if(Messages.get(message) instanceof Message) {
-								Message msg3 = new Message();
-								
-								msg3.setTitre("re-".concat(Messages.get(message).getTitre()));
-								System.out.println("Veuillez saisir votre reponse : ");
-								String contenu = scanner.nextLine();
-								msg3.setContenu(contenu);
-								Messages.put(msg3.toString(), msg3);
-								//for every adress, if the objject sent is the same as recieved in the last email means it was a sender
-								//and it will recieve an answer 
-								for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
-									for(Message message1 : adresses.get(entry.getValue()).getBoite_de_messagerie().getEnvoyes()) {
-										// si le titre est equivalent
-										if(message1.getTitre().equals(message)) {
-											entry.getValue().getBoite_de_messagerie().AddReçu(msg3);
-										}
-									}
-								}
-							} 
-								//else
-//							
-//							if(Messages.get(message) instanceof MessageAttach) {
-//								
-//								Message msg3 = new MessageAttach("re-".concat(Messages.get(message).getTitre()), "",Messages.get(message).get) );
-//								msg3.setTitre("re-".concat(Messages.get(message).getTitre()));
-//								System.out.println("Veuillez saisir votre reponse : ");
-//								String contenu = scanner.nextLine();
-//								
-//								for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
-//									for(Message message1 : adresses.get(entry.getValue()).getBoite_de_messagerie().getEnvoyes()) {
-//										// si le titre est equivalent
-//										if(message1.getTitre().equals(message)) {
-//											
-//										}
-//									}
-//								}
-//							}
-							
-							
-								
-						}	
-							
+						Message arepondre = null ;
+						for(Message m : adresses.get(adress).getBoite_de_messagerie().getReçus()) {
+							if(m.getTitre()==message || m.getTitre()==message+" (NON LU)") {
+								arepondre = m ;
+							}
+						}
 						
+						if(arepondre == null) {
+							System.out.println("Message non existant");
+							break ;
+						}
 						
+						Message reponse  = new MessageAttach() ;	
+						reponse.saisie(1);
 						
+						if(arepondre instanceof MessageAttach)
+							arepondre = new MessageAttach( (MessageAttach) arepondre) ;
+						else
+							arepondre = new Message(arepondre) ;
+						
+						arepondre.setEtat(Etat.ENVOYE);
+						for(AdrEmail a : adresses.values()) {
+							if(a.getBoite_de_messagerie().getEnvoyes().contains(arepondre)) {
+								repondeur.getBoite_de_messagerie().envoyerMsg(reponse, a.toString());
+							}
+						}
 						break;
+						
 					case 9:
 						System.out.println("Veuillez inserer votre adress Email : ");
 						scanner.nextLine();
 						adress = scanner.nextLine();
+						
+						if(!adresses.containsKey(adress)) {
+							System.out.println("Adresse non existante");
+							break ;
+						}
+						
 						System.out.println("Veuillez entrer quel dossier voulez vous supprimer ?");
 						System.out.println("--1--Spam ? ");
 						System.out.println("--2--Envoyés ? ");
-						scanner.nextLine();
-						choice = scanner.nextInt();
+						
+						choice = scanner.nextInt(); scanner.nextLine();
 						if(choice == 1) {
-							for(Message msg : adresses.get(adress).getBoite_de_messagerie().getSpam() ) {
-								
-								adresses.get(adress).getBoite_de_messagerie().getSpam().remove(msg);
-								Messages.remove(msg);
-							}
-						} else 
+							adresses.get(adress).getBoite_de_messagerie().getSpam().clear();
+						} 
+						
+						else 
 						if(choice == 2) {
-							for(Message msg : adresses.get(adress).getBoite_de_messagerie().getEnvoyés() ) {
-								adresses.get(adress).getBoite_de_messagerie().getEnvoyés().remove(msg);
-								Messages.remove(msg);
-							}
+							adresses.get(adress).getBoite_de_messagerie().getEnvoyes().clear();
 						}
 						break;
 						
@@ -618,10 +605,10 @@ public class Application {
 						System.out.println("--6--corbeille ? ");
 						scanner.nextLine();
 						do {
-							
-							choix = scanner.nextInt();
+							choix = scanner.nextInt(); scanner.nextLine();
 						}while(choix < 1 || choix > 6);
-						 HashSet dossier = new HashSet(); 
+						
+						HashSet dossier = null ;
 						switch (choix) {
 						case 1:
 							dossier	= (HashSet) adresses.get(adress).getBoite_de_messagerie().getSpam().clone();
@@ -642,9 +629,22 @@ public class Application {
 							dossier = (HashSet) adresses.get(adress).getBoite_de_messagerie().getCorbeille().clone();
 							break;
 						}
-						TreeSet <Message> SortedMessages = new TreeSet <Message> (dossier);
 						
-						System.out.println(SortedMessages);
+						System.out.println("Voulez vous un trie par date ou par objet ?");
+						System.out.println("\t1.Par date.\n\t2.Par objet.");
+						choix = scanner.nextInt() ; scanner.nextLine();
+						
+						if(choix==2) {
+							TreeSet <Message> SortedMessages = new TreeSet <Message> (dossier);
+							System.out.println(SortedMessages);
+						}
+						
+						else if(choix==1) {
+							ArrayList<Message> SortedMessages = new ArrayList<Message>(dossier) ;
+							Collections.sort(SortedMessages, new Comparateur() );
+							System.out.println(SortedMessages);
+						}
+						
 						
 						
 						break;

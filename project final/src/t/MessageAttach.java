@@ -35,7 +35,7 @@ public class MessageAttach extends Message {
 	}
 	
 	
-	MessageAttach(MessageAttach msg){
+	public MessageAttach(MessageAttach msg){
 		super(msg) ;
 		this.attachement = new HashSet<piece_jointe>(msg.attachement) ;
 	}
@@ -52,7 +52,7 @@ public class MessageAttach extends Message {
 		Scanner scanner = new Scanner(System.in);
 		int choix ;
 
-		super.saisie();
+		super.saisie(0);
 		System.out.println("----Voulez vous ajouter des pieces jointes ?----");	
 		do {
 			System.out.println("\t1.Oui");

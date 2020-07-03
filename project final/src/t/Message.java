@@ -32,7 +32,7 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 	}
 	
 	
-	Message(Message m){
+	public Message(Message m){
 		this.contenu = m.contenu ;
 		this.titre = m.titre ; 
 		this.creation = m.creation ;
@@ -107,15 +107,16 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 	
 	//we need modify message method
 	
-	public void saisie() throws MoreThan10485760, ExceptionPieceExistante   {
+	public void saisie(int a) throws MoreThan10485760, ExceptionPieceExistante   {
 		
 		Scanner scanner = new Scanner(System.in);
 		int z;
 		
 		
-		
-		System.out.println("----Veuillez insérez l'objet de votre message----");
-		titre = scanner.nextLine();
+		if(a==0) {
+			System.out.println("----Veuillez insérez l'objet de votre message----");
+			titre = scanner.nextLine();
+		}
 		System.out.println("----Veuillez insérez le contenu de votre message----");
 		contenu = scanner.nextLine();
 		creation = new Date() ;		//Date() returns the current system date.
@@ -167,22 +168,38 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 	@Override
 	public int compareTo(Message arg0) {
 		
-		if(this.creation.compareTo(arg0.creation)!=0)
-			return this.creation.compareTo(arg0.creation);
+		if(this.titre.compareTo(arg0.titre)!=0)
+			return this.titre.compareTo(arg0.titre);
 		
 		else
-			return this.titre.compareTo(arg0.titre);
+			return this.creation.compareTo(arg0.creation);
 	}
 	
-	@Override
+	
+	class Comparateur implements Comparator<Message>{
+	
+	
+		public int compare(Message arg0, Message arg1) {
+			// TODO Auto-generated method stub
+		
+			if (arg0.creation.compareTo(arg1.creation)!=0)
+				return arg0.creation.compareTo(arg1.creation);
+			else
+				return arg0.titre.compareTo(arg1.titre) ;
+		}
+
+	}
+	
+	
 	public int compare(Message arg0, Message arg1) {
 		// TODO Auto-generated method stub
-		
+	
 		if (arg0.creation.compareTo(arg1.creation)!=0)
 			return arg0.creation.compareTo(arg1.creation);
 		else
 			return arg0.titre.compareTo(arg1.titre) ;
 	}
+	
 	
 	public boolean expediteur() {
 		if(this.etat.equals(Etat.ENVOYE)) {

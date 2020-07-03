@@ -54,7 +54,7 @@ public class BoiteMsg {
 		//Heres the use of the parametre
 		if(msg==null) {
 			msg = new MessageAttach() ;
-			msg.saisie();
+			msg.saisie(0);
 		}
 		//Heres the use of the parametre
 		
