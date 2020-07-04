@@ -35,42 +35,50 @@ public class Application {
 	public static ArrayList<String> list = new ArrayList<String>(); 
 	public static HashSet<Profil> Profiles = new HashSet<Profil>() ;
 	public static HashMap<String ,Message> Messages = new HashMap<String ,Message>() ;
+	static AdrEmail adr [] = new AdrEmail [6];
+	static AdrProf adr1 [] = new AdrProf [2];
 
 	public static void creerAdr() {
 		
-		Scanner scanner = new Scanner(System.in) ;
-		int j ;
-		int i ;
-		do {
-			do {
-				System.out.println("----Veuillez Choisir votre Address Email ----");
-				System.out.println("---1- Address Email Normal ----");
-				System.out.println("---2- Address Email Professionnel ----");
-				j = scanner.nextInt();
-				if(j == 1) {
-					AdrEmail adr = new AdrEmail() ;
-					adr.saisie();
-					System.out.println("----------Creation du profil--------------");
-					Profil profil = new Profil();
-					profil.saisieProfil();
-					profil.getAdresses().put(adr.toString(), adr);
-					Profiles.add(profil);
-					
-				}				
-				else if(j == 2) {
-					AdrProf adr = new AdrProf();
-					adr.saisie();
-					System.out.println("----------Creation du profil--------------");
-					Profil profil = new Profil();
-					profil.saisieProfil();
-					profil.getAdresses().put(adr.toString(), adr);
-					Profiles.add(profil);
-				}				
-			} while(j != 1 && j != 2);
-			System.out.println("--1--insérer d'autre Adresses & Profils");
-			System.out.println("--0--Quitter.");						
-			i = scanner.nextInt();
-		}while(i != 0);
+		adr[0] =  new AdrEmail("shadow","outlook.com","azerfazer12$") ;
+		adr[1] = new AdrEmail("ngedmond","hotmail.com","azerfazer12$");
+		adr[2] = new AdrEmail("tedrlord","gmail.com","azerfazer12$");
+		adr[3] = new AdrEmail("crobles","gmail.com","azerfazer12$");
+		adr[4] = new AdrEmail("janneh","live.com","azerfazer12$");
+		adr[5] = new AdrEmail("andale","verizon.net","azerfazer12$");
+		adr1[0] = new AdrProf("markzuckerberg","facebook.com","azerfazer12$","médias sociaux","facebook");
+		adr1[1] = new AdrProf("sboukhedouma","usthb.dz","azerfazer12$","Enseignement","usthb"); 
+		AdrEmail adr2 = null;
+		int y = 0;		
+		//filling up the addresses hashmap.
+		for(int i = 0 ; i<6 ; i++) {			
+			adresses.put(adr[i].toString(), adr[i]) ;						
+		}
+		for(int i =0; i<2; i++) {
+			adresses.put(adr1[i].toString(), adr1[i]);	
+		}
+		
+		Profil profil1 = new Profil("Zuckerberg", "Mark", 24, "0556600845", "United Sates", "MASCULAIN");
+		profil1.getAdresses().put(adr1[0].toString(), adr1[0]);
+		profil1.getAdresses().put(adr[3].toString(), adr[3]);
+		Profiles.add(profil1);
+		
+		
+		Profil profil2 = new Profil("Boukhedouma", "S", 34, "0556646845", "Algerie", "FEMININ");
+		profil2.getAdresses().put(adr1[1].toString(), adr1[1]);
+		profil2.getAdresses().put(adr[5].toString(), adr[5]);
+		Profiles.add(profil2);
+		
+		Profil profil3 = new Profil("matoub", "lounes", 48, "0556689845", "Paradis", "MASCULAIN");
+		profil3.getAdresses().put(adr[4].toString(), adr[4]);
+		profil3.getAdresses().put(adr[2].toString(), adr[2]);
+		Profiles.add(profil3);
+		
+		Profil profil4 = new Profil("chikhi", "abbdle hak", 19, "0556634845", "Algerie", "MASCULAIN");
+		profil4.getAdresses().put(adr[0].toString(), adr[0]);
+		profil4.getAdresses().put(adr[1].toString(), adr[1]);
+		Profiles.add(profil4);
+		
 	}
 	
 	
@@ -248,25 +256,8 @@ public class Application {
 	public static void main(String[] args) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide {
 		
 		
-		AdrEmail adr [] = new AdrEmail [6];
-		AdrProf adr1 [] = new AdrProf [2];
-		adr[0] =  new AdrEmail("shadow","outlook.com","azerfazer12$") ;
-		adr[1] = new AdrEmail("ngedmond","hotmail.com","azerfazer12$");
-		adr[2] = new AdrEmail("tedrlord","gmail.com","azerfazer12$");
-		adr[3] = new AdrEmail("crobles","gmail.com","azerfazer12$");
-		adr[4] = new AdrEmail("janneh","live.com","azerfazer12$");
-		adr[5] = new AdrEmail("andale","verizon.net","azerfazer12$");
-		adr1[0] = new AdrProf("markzuckerberg","facebook.com","azerfazer12$","médias sociaux","facebook");
-		adr1[1] = new AdrProf("sboukhedouma","usthb.dz","azerfazer12$","Enseignement","usthb"); 
-		AdrEmail adr2 = null;
-		int y = 0;		
-		//filling up the addresses hashmap.
-		for(int i = 0 ; i<6 ; i++) {			
-			adresses.put(adr[i].toString(), adr[i]) ;						
-		}
-		for(int i =0; i<2; i++) {
-			adresses.put(adr1[i].toString(), adr1[i]);	
-		}
+		
+	
 		
 		Message Msg [] = new Message [5];
 		MessageAttach MsgAttach [] = new MessageAttach [2];
@@ -399,12 +390,52 @@ public class Application {
 					case 1:
 						
 						adr[0].getBoite_de_messagerie().envoyerMsg( Msg[0],"ngedmond@hotmail.com");
+						adr[0].getBoite_de_messagerie().envoyerMsg( Msg[1],"ngedmond@hotmail.com");
+						adr[0].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"ngedmond@hotmail.com");
+						adr[0].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"ngedmond@hotmail.com");
+						adr[0].getBoite_de_messagerie().envoyerMsg( Msg[4],"ngedmond@hotmail.com");
+						
 						adr[1].getBoite_de_messagerie().envoyerMsg( Msg[1],"tedrlord@gmail.com");
+						adr[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"tedrlord@gmail.com");
+						adr[1].getBoite_de_messagerie().envoyerMsg( Msg[3],"tedrlord@gmail.com");
+						adr[1].getBoite_de_messagerie().envoyerMsg( Msg[4],"tedrlord@gmail.com");
+						
+						
 						adr[2].getBoite_de_messagerie().envoyerMsg( Msg[2],"crobles@gmail.com");
+						adr[2].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"crobles@gmail.com");
+						adr[2].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"crobles@gmail.com");
+						adr[2].getBoite_de_messagerie().envoyerMsg( Msg[2],"crobles@gmail.com");
+						adr[2].getBoite_de_messagerie().envoyerMsg( Msg[2],"crobles@gmail.com");
+						
 						adr[3].getBoite_de_messagerie().envoyerMsg( Msg[3],"janneh@live.com");
+						adr[3].getBoite_de_messagerie().envoyerMsg( Msg[1],"janneh@live.com");
+						adr[3].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"janneh@live.com");
+						adr[3].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"janneh@live.com");
+						adr[3].getBoite_de_messagerie().envoyerMsg( Msg[2],"janneh@live.com");
+						
 						adr[4].getBoite_de_messagerie().envoyerMsg( Msg[4],"andale@verizon.net"); 
+						adr[4].getBoite_de_messagerie().envoyerMsg( Msg[3],"andale@verizon.net"); 
+						adr[4].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"andale@verizon.net"); 
+						adr[4].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"andale@verizon.net"); 
+						adr[4].getBoite_de_messagerie().envoyerMsg( Msg[0],"andale@verizon.net"); 
+						
 						adr[5].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"markzuckerberg@facebook.com");
+						adr[5].getBoite_de_messagerie().envoyerMsg( Msg[1],"markzuckerberg@facebook.com");
+						adr[5].getBoite_de_messagerie().envoyerMsg( Msg[4],"markzuckerberg@facebook.com");
+						adr[5].getBoite_de_messagerie().envoyerMsg( Msg[0],"markzuckerberg@facebook.com");
+						adr[5].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"markzuckerberg@facebook.com");
+						
+						adr1[0].getBoite_de_messagerie().envoyerMsg( MsgAttach[0],"sboukhedouma@usthb.dz");
+						adr1[0].getBoite_de_messagerie().envoyerMsg( Msg[3],"sboukhedouma@usthb.dz");
+						adr1[0].getBoite_de_messagerie().envoyerMsg( Msg[2],"sboukhedouma@usthb.dz");
+						adr1[0].getBoite_de_messagerie().envoyerMsg( Msg[1],"sboukhedouma@usthb.dz");
 						adr1[0].getBoite_de_messagerie().envoyerMsg( MsgAttach[1],"sboukhedouma@usthb.dz");
+						
+						
+						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
+						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
+						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
+						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
 						adr1[1].getBoite_de_messagerie().envoyerMsg( Msg[2],"shadow@outlook.com");
 						break;
 						

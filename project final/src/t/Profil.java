@@ -11,7 +11,7 @@ public class Profil {
 	private String nom;
 	private String prenom;
 	private int age;
-	private int numero;
+	private String numero;
 	private String pays;
 	private Genre genre;
 	static HashMap<String ,AdrEmail> Adresses = new HashMap<String ,AdrEmail>() ;
@@ -20,7 +20,7 @@ public class Profil {
 		
 	}
 	
-	Profil(String nom, String prenom, int age, int numero, String pays, String genre) {
+	public Profil(String nom, String prenom, int age, String numero, String pays, String genre) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.age = age;
@@ -43,7 +43,7 @@ public class Profil {
 		age = scanner.nextInt();
 		
 		System.out.println("----Veuillez insérez votre Numero de telephone----");
-		numero = scanner.nextInt(); scanner.nextLine();
+		numero = scanner.nextLine(); scanner.nextLine();
 		
 		System.out.println("----Veuillez insérez votre Pays----");
 		pays = scanner.nextLine(); 
@@ -147,14 +147,6 @@ public class Profil {
 		this.age = age;
 	}
 
-	public int getNumero() {
-		return numero;
-	}
-
-	public void setNumero(int numero) {
-		this.numero = numero;
-	}
-
 	public String getPays() {
 		return pays;
 	}
@@ -169,6 +161,14 @@ public class Profil {
 
 	public void setGenre(Genre genre) {
 		this.genre = genre;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 	
 	
