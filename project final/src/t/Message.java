@@ -223,7 +223,5 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 		return false;
 	}
 	
-	public int hashCode() {
-		return 0;
-	}
+
 }	

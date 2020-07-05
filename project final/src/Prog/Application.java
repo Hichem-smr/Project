@@ -364,6 +364,7 @@ public class Application {
 							adress.setBoite_de_messagerie(BoiteMsg);	
 							Message msg = new Message("Bienvenue","");
 							BoiteMsg.AddReçu(msg);
+							adresses.put(adress.toString(), adress);
 						}	
 						
 						else if(j == 2) {
@@ -378,11 +379,12 @@ public class Application {
 							adress.setBoite_de_messagerie(BoiteMsg);
 							Message msg = new Message("Bienvenue","");
 							BoiteMsg.AddReçu(msg);
+							adresses.put(adress.toString(), adress);
 						}
 						
 					} while(j != 1 && j != 2);
 					
-					
+					break;
 				case 6:
 					for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
 						System.out.println("Adress : " + entry.getKey());
@@ -391,6 +393,10 @@ public class Application {
 					break ;
 					
 				case 7:
+					int choixxx;
+					do {
+						
+					
 					int choice;
 					do {
 						System.out.println("------Voulez vous ?------");
@@ -406,7 +412,8 @@ public class Application {
 						System.out.println("10. trier les messages par date et par objet");
 						System.out.println("11. Quitter");
 						choice = scanner.nextInt() ; scanner.nextLine();
-					}while(choice > 10 || choice < 1);
+						choixxx = choice;
+					}while(choice > 11 || choice < 1 );
 					
 					switch (choice) {
 					case 1:
@@ -525,23 +532,25 @@ public class Application {
 							if(adresses.containsKey(adress)) 
 								adresses.get(adress).getBoite_de_messagerie().archiver();
 							
-							else do {
+							else {
 								System.out.println("Adress non existante");
+							}
+								
 							
 								System.out.println("Voulez vous ajouter d'autre Adresses?");
 								System.out.println("--1-- Oui");
 								System.out.println("--2-- Non");
 								choice = scanner.nextInt(); scanner.nextLine();
-							}while(choice != 2 && choice != 1);
+							
 					
 						}while(choice != 2);
 						break;
 						
 					case 7:
-						
+						//scanner.nextLine();
 						System.out.println(adresses.keySet() + "\n");
 						System.out.println("Veuillez inserer votre Adresse Email : ?");
-						scanner.nextLine();
+					
 						adress = scanner.nextLine();
 						if(!(adresses.containsKey(adress))) {
 							System.out.println("Adress non exitante");
@@ -549,12 +558,12 @@ public class Application {
 						}
 						
 						System.out.println("Veuillez inserer l'objet de votre message a restaurer");
-						scanner.nextLine();
+						//scanner.nextLine();
 						String msg_arestaurer = scanner.nextLine();
 						
 						
 						for(Message m : adresses.get(adress).getBoite_de_messagerie().getCorbeille()) {
-							if(m.getTitre()==msg_arestaurer || m.getTitre()==msg_arestaurer+" (NON LU)") {
+							if( m.getTitre().equals(msg_arestaurer) || m.getTitre().equals(msg_arestaurer.concat(" (NON LU)"))) {
 								if(m.getEtat()== Etat.ENVOYE) {
 									adresses.get(adress).getBoite_de_messagerie().getCorbeille().remove(m);
 									adresses.get(adress).getBoite_de_messagerie().getEnvoyes().add(m);
@@ -569,7 +578,7 @@ public class Application {
 									break ;
 								}
 							}
-						}						
+						}					
 						break;
 						
 					case 8:
@@ -696,14 +705,16 @@ public class Application {
 						
 						
 						break;
-						
+					case 11:
+						break;
 					}
 					
-					
+					}while(choixxx != 11);
 					
 				break;	
 					
 				case 8: 
+					int choice;
 					do {						
 						System.out.println("1. Afficher toutes les boites ayant reçu un message donné : ");
 						System.out.println("2. Afficher les boites qui sont remplies à plus de 50% de leur capacité : ");

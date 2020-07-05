@@ -180,7 +180,7 @@ public class BoiteMsg {
 			corbeille.add(temp);	
 			System.out.println("Message supprime");
 			
-		}while(choix!=asupprimer.size()+2 && asupprimer.size()!=0) ;
+		}while(choix!=asupprimer.size()+2 && asupprimer.size()!=0) ; 
 		
 	}
 	
@@ -370,22 +370,37 @@ public class BoiteMsg {
 
 		date = new Date(year, month, day) ; 
 		
-		for(Message m : this.reçus) {
+	
+		    
+		    
+		    
+		for(Message m : reçus) {
 			if(m.getCreation().before(date)) {
-				this.reçus.remove(m);
 				m.setEtat(Etat.ARCHIVE);
 				this.archives.add(m);
 			}
 		}
 		
-		for(Message m : this.envoyés) {
+		Iterator<Message> iterator = reçus.iterator();
+		while (iterator.hasNext()) {
+			Message m = iterator.next();
 			if(m.getCreation().before(date)) {
-				this.envoyés.remove(m);
-				m.setEtat(Etat.ARCHIVE);
-				this.archives.add(m);
+				iterator.remove();
+				archives.add(m);
 			}
 		}
 		
+		
+		
+		iterator = envoyés.iterator();
+		while (iterator.hasNext()) {
+			Message m = iterator.next();
+			if(m.getCreation().before(date)) {
+				iterator.remove();
+				archives.add(m);
+			}
+		}
+	//	
 	}
 	
 	//untested
