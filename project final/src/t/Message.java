@@ -4,6 +4,9 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Scanner;
 
+import Prog.Application;
+
+
 
 
 public class Message implements Comparator<Message>, Comparable<Message> {
@@ -15,7 +18,6 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 	private Etat etat ;
 	int taille ;
 	// = titre.length() + contenu.length();
-	
 	
 	public Message(){
 		etat = Etat.CREE;
@@ -57,12 +59,18 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 		if (o==null)
 			return false ;
 		
-		if(!(o instanceof Message))
+		if(! (o instanceof Message))
 			return false ;
+		
+		if(o instanceof MessageAttach) {
+			if(((MessageAttach)o).getAttachement()!=null)
+				return false ;
+		}
+			
 		
 		String titre = ((Message)o).titre;
 		String contenu = ((Message)o).contenu; 
-		if(this.titre==titre && this.contenu == contenu)
+		if((this.titre.contentEquals(titre) || this.titre.contentEquals(titre+" (NON LU)")) && this.contenu.contentEquals(contenu) )
 			return true ;
 		
 		return false ;
@@ -153,6 +161,7 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 			}
 			
 			taille = titre.length() + contenu.length() ;
+			Application.Messages.put(this.titre, this) ;
 	}
 	
 	
@@ -177,7 +186,6 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 	
 	
 	class Comparateur implements Comparator<Message>{
-	
 	
 		public int compare(Message arg0, Message arg1) {
 			// TODO Auto-generated method stub
@@ -215,5 +223,7 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 		return false;
 	}
 	
-	
+	public int hashCode() {
+		return 0;
+	}
 }	

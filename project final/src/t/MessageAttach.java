@@ -16,33 +16,42 @@ public class MessageAttach extends Message {
 	
 	
 	public MessageAttach(){
-		attachement = new HashSet<piece_jointe>() ;
 		setEtat(Etat.CREE);
 		tailleattachement=0 ;
 	}
 	
-	public MessageAttach(String titre , String contenu, piece_jointe piece_jointe ){
+	public MessageAttach(String titre , String contenu,  HashSet<piece_jointe> attachement ){
 		super(titre , contenu );
-		attachement.add(piece_jointe);		
-		if(piece_jointe == null) {
-			tailleattachement = 0;
-		}
-		else {
-			tailleattachement = piece_jointe.getTaille();
+		this.attachement= attachement ;	
+		tailleattachement = 0;
+		for(piece_jointe p : this.attachement) {
+			tailleattachement += p.getTaille() ;
 		}
 		
 		
 	}
 	
 	
-	public MessageAttach(MessageAttach msg){
+	public MessageAttach(Message msg){
 		super(msg) ;
-		this.attachement = new HashSet<piece_jointe>(msg.attachement) ;
+		
+		if(!(msg instanceof MessageAttach))
+			return ;
+		
+		this.attachement = new HashSet<piece_jointe>(((MessageAttach)msg).getAttachement()) ;
+		tailleattachement = 0 ;
+		for(piece_jointe p : this.attachement) {
+			tailleattachement += p.getTaille() ;
+		}
 	}
 	
 	
 	public String toString() {
-		return(super.toString() +"Attachement :" + attachement + "\n\n") ;
+		
+		if(attachement!=null)
+			return(super.toString() +"Attachement :" + attachement + "\n\n") ;
+		else
+			return(super.toString() + "\n\n");
 		
 	}
 	
@@ -120,4 +129,41 @@ public class MessageAttach extends Message {
 		System.out.println(attachement);
 	}
 	
+	
+	public boolean equals(Object o) {
+		
+		String titre;
+		String contenu ;
+		
+		if (o==null)
+			return false ;
+		
+		if(! (o instanceof Message))
+			return false ;
+		
+		if(!(o instanceof MessageAttach)) {
+			if(attachement!=null)
+				return false ;
+			
+			titre = ((Message)o).getTitre();
+			contenu = ((Message)o).getContenu(); 
+			if((this.getTitre().contentEquals(titre) || this.getTitre().contentEquals(titre+" (NON LU)")) && this.getContenu().contentEquals(contenu))
+				return true ;
+		}
+		
+		titre = ((Message)o).getTitre();
+		contenu = ((Message)o).getContenu(); 
+		HashSet<piece_jointe> attachement = ((MessageAttach)o).getAttachement();
+		
+		if((this.getTitre().contentEquals(titre) || this.getTitre().contentEquals(titre+" (NON LU)")) && this.getContenu().contentEquals(contenu)
+				&& this.attachement.equals(attachement) )
+			return true ;
+		
+		return false ;
+		
+	}
+	
+	public int hashCode() {
+		return 0;
+	}
 }

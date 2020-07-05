@@ -12,7 +12,6 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 	private BoiteMsg boite_de_messagerie ;
 	
 	public AdrEmail(){
-		//boite_de_messagerie = new BoiteMsg();
 		
 	}
 	
@@ -21,7 +20,6 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 		this.mdp = mdp ;
 		this.pseudo = pseudo ;
 		this.setSite(site) ;
-		boite_de_messagerie = new BoiteMsg();
 	}
 	
 	
@@ -160,7 +158,7 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 			return false ;
 		
 		AdrEmail o = (AdrEmail) obj ;
-		if(site!=o.site || pseudo!=o.pseudo)
+		if(!site.contentEquals(o.site) || !pseudo.contentEquals(o.pseudo))
 			return false ;
 		
 		return true ;
@@ -243,6 +241,10 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 		} while(!Verif_pseudo(pseudo1));
 		return pseudo1;
 	}
-	
+
+	public int hashCode() {
+		return 0;
+	}
+
 }
 

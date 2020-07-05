@@ -35,8 +35,17 @@ public class AdrProf extends AdrEmail {
 	
 	
 	public boolean equals(Object o) {
-		return(super.equals(o));		
-	}
+		if(o==null)
+			return false ;
+		
+		if (!(o instanceof AdrEmail))
+			return false ;
+		
+		AdrEmail obj = (AdrEmail) o ;
+		if(!this.getSite().contentEquals(obj.getSite()) || !this.getPseudo().contentEquals(obj.getPseudo()))
+			return false ;
+		
+		return true ;	}
 
 	public String getEntreprise() {
 		return entreprise;
@@ -54,4 +63,7 @@ public class AdrProf extends AdrEmail {
 		this.domain = domain;
 	}
 	
+	public int hashCode() {
+		return 0;
+	}
 }

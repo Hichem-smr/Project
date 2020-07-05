@@ -58,27 +58,36 @@ public class Application {
 			adresses.put(adr1[i].toString(), adr1[i]);	
 		}
 		
-		Profil profil1 = new Profil("Zuckerberg", "Mark", 24, "0556600845", "United Sates", "MASCULAIN");
+		Profil profil1 = new Profil("Zuckerberg", "Mark", 24, "0556600845", "Etats unis", "MASCULAIN");
 		profil1.getAdresses().put(adr1[0].toString(), adr1[0]);
 		profil1.getAdresses().put(adr[3].toString(), adr[3]);
 		Profiles.add(profil1);
 		
-		
+			
 		Profil profil2 = new Profil("Boukhedouma", "S", 34, "0556646845", "Algerie", "FEMININ");
 		profil2.getAdresses().put(adr1[1].toString(), adr1[1]);
 		profil2.getAdresses().put(adr[5].toString(), adr[5]);
 		Profiles.add(profil2);
 		
-		Profil profil3 = new Profil("matoub", "lounes", 48, "0556689845", "Paradis", "MASCULAIN");
+		
+		Profil profil3 = new Profil("matoub", "lounes", 48, "0556689845", "Algerie", "MASCULAIN");
 		profil3.getAdresses().put(adr[4].toString(), adr[4]);
 		profil3.getAdresses().put(adr[2].toString(), adr[2]);
 		Profiles.add(profil3);
+		
 		
 		Profil profil4 = new Profil("chikhi", "abbdle hak", 19, "0556634845", "Algerie", "MASCULAIN");
 		profil4.getAdresses().put(adr[0].toString(), adr[0]);
 		profil4.getAdresses().put(adr[1].toString(), adr[1]);
 		Profiles.add(profil4);
+			
 		
+		Profil profil5 = new Profil("Ameziane", "abbdle ghani", 20, "0559873980", "Algerie", "MASCULAIN");
+		Profiles.add(profil5);
+		
+		Profil profil6 = new Profil("Semmar", "Hichem", 20, "0779862538", "Algerie", "MASCULAIN");
+		Profiles.add(profil6);
+
 	}
 	
 	
@@ -111,7 +120,7 @@ public class Application {
 				}
 				
 				do {
-					System.out.println("Veuillez donner un nombre entre 1 et " + profiles.size()+1);
+					System.out.println("Veuillez donner un nombre entre 1 et " + profiles.size());
 					j = scanner.nextInt(); 		scanner.nextLine();
 				}while(j<1 || j > profiles.size() + 1 ) ;
 				
@@ -252,12 +261,7 @@ public class Application {
 	}
 	
 	
-	
 	public static void main(String[] args) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide {
-		
-		
-		
-	
 		
 		Message Msg [] = new Message [5];
 		MessageAttach MsgAttach [] = new MessageAttach [2];
@@ -267,10 +271,12 @@ public class Application {
 		Msg[3] = new Message("Cours Bdd","un cours est programmé samedi à 11h00");
 		Msg[4] = new Message("Cours Python","un cours est programmé samedi à 13h00");	
 		
-		piece_jointe piece = new piece_jointe("Serie d'exercices THL",10);
+		HashSet<piece_jointe> piece = new HashSet<piece_jointe>();
+		piece.add(new piece_jointe("Serie d'exercices THL",10000)) ;
 		MsgAttach[0] = new MessageAttach("Cours THL","un cours est programmé samedi à 8h00",piece);
-		piece = new piece_jointe("Serie d'exercices Anglais",10);
-		MsgAttach[1] = new MessageAttach("Cours Anglais","un cours est programmé samedi à 15h00",piece);
+		HashSet<piece_jointe> piece2 = new HashSet<piece_jointe>(); 
+		piece2.add(new piece_jointe("Serie d'exercices Anglais",10000));
+		MsgAttach[1] = new MessageAttach("Cours Anglais","un cours est programmé samedi à 15h00",piece2);
 		
 		for(int i = 0 ; i<4 ; i++) {			
 			Messages.put(Msg[i].getTitre(), Msg[i]) ;						
@@ -309,6 +315,10 @@ public class Application {
 					}
 					
 				for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
+					
+					if(entry.getValue().getBoite_de_messagerie()!=null)
+						continue ;
+					
 					BoiteMsg boite_de_messagerie1 = new BoiteMsg();
 					boite_de_messagerie1.setCapacité(k);
 					Message msg = new Message("Bienvenue","");
@@ -341,8 +351,6 @@ public class Application {
 							adress.setBoite_de_messagerie(BoiteMsg);	
 							Message msg = new Message("Bienvenue","");
 							BoiteMsg.AddReçu(msg);
-							
-							
 						}	
 						
 						else if(j == 2) {
@@ -367,6 +375,7 @@ public class Application {
 						System.out.println("Adress : " + entry.getKey());
 						entry.getValue().getBoite_de_messagerie().AfficheBoite();
 					}
+					break ;
 					
 				case 7:
 					int choice;
@@ -582,14 +591,9 @@ public class Application {
 						}
 						
 						Message reponse  = new MessageAttach() ;	
+						reponse.setTitre("RE:".concat(arepondre.getTitre().replace(" (NON LU)", "")));
 						reponse.saisie(1);
 						
-						if(arepondre instanceof MessageAttach)
-							arepondre = new MessageAttach( (MessageAttach) arepondre) ;
-						else
-							arepondre = new Message(arepondre) ;
-						
-						arepondre.setEtat(Etat.ENVOYE);
 						for(AdrEmail a : adresses.values()) {
 							if(a.getBoite_de_messagerie().getEnvoyes().contains(arepondre)) {
 								repondeur.getBoite_de_messagerie().envoyerMsg(reponse, a.toString());
@@ -697,7 +701,7 @@ public class Application {
 						System.out.println("7. Afficher les noms, prénoms des profils ayant au moins deux boites de messagerie.");  							
 						System.out.println("8. Vider toutes les boites d’un site donné");
 						choice = scanner.nextInt() ;
-					}while(choice > 8 || choice < 1);
+					}while( choice > 8 || choice < 1 );
 					switch (choice) {
 					
 					case 1: 
@@ -710,6 +714,7 @@ public class Application {
 							}
 						}
 						break;
+						
 					case 2: 
 						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
 							if(entry.getValue().getBoite_de_messagerie().getCapacité()*0.5 < entry.getValue().getBoite_de_messagerie().SpaceLeft()) {
@@ -717,6 +722,7 @@ public class Application {
 							}
 						}
 						break;
+						
 					case 3: 
 						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
 							if(!(entry.getValue() instanceof AdrProf)) {
@@ -727,9 +733,8 @@ public class Application {
 							}
 						}
 						break;
-					case 4: 
-						//haven't intialized the profiles yet
 						
+					case 4: 
 						
 						System.out.println("Veuillez inserer votre site");
 						String site = scanner.nextLine();
@@ -742,7 +747,7 @@ public class Application {
 										total++;
 										list.add(String.valueOf(profile.getAge()));
 									}
-								}															
+								}													
 							}
 						}
 						
@@ -762,11 +767,17 @@ public class Application {
 				     
 						 
 						break;
+						
 					case 5: 
 						System.out.println("Veuillez inserer l'adresse de votre boite-Email : ");
 						System.out.println(adresses.keySet());
 						scanner.nextLine();
 						String adrress = scanner.nextLine();
+						
+						if(!adresses.containsKey(adrress)) {
+							System.out.println("Adress non existante");
+							break ;
+						}
 						
 						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getReçus() ) {
 							if((message1 instanceof MessageAttach)) {
@@ -775,6 +786,7 @@ public class Application {
 								}
 							}
 						}
+						
 						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getBrouillons() ) {     
 							if((message1 instanceof MessageAttach)) {
 								if(((MessageAttach) message1).getAttachement() != null) {
@@ -782,6 +794,7 @@ public class Application {
 								}
 							}
 						}
+						
 						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getEnvoyes() ) {
 							if((message1 instanceof MessageAttach)) {
 								if(((MessageAttach) message1).getAttachement() != null) {
@@ -789,10 +802,8 @@ public class Application {
 								}
 							}
 						}
-						
-						
-						
 						break;
+						
 					case 6: 
 						System.out.println("----Voulez vous : ?----");
 						scanner.nextLine();
@@ -808,13 +819,24 @@ public class Application {
 						case 1:
 							System.out.println("Veuillez inserer votre adresse Destinataire : ");
 							String destinataire = scanner.nextLine();
-							adresses.get(destinataire).getBoite_de_messagerie().getRecus();
+							if(!adresses.containsKey(destinataire)) {
+								System.out.println("adresse non existante");
+								break ;
+							}
+								
+							System.out.println(adresses.get(destinataire).getBoite_de_messagerie().getRecus());
 							
 							break;
 						case 2:
 							System.out.println("Veuillez inserer votre adresse Expediteur : ");
 							String expediteur = scanner.nextLine();
-							adresses.get(expediteur).getBoite_de_messagerie().getEnvoyes();
+							
+							if(!adresses.containsKey(expediteur)) {
+								System.out.println("adresse non existante");
+								break ;
+							}
+							
+							System.out.println(adresses.get(expediteur).getBoite_de_messagerie().getEnvoyes());
 							
 							break;
 						case 3:
@@ -831,13 +853,10 @@ public class Application {
 						}
 						
 						break;
-						
-						
-						
-						
+
 					case 7: 
 						for(Profil profil : Profiles) {
-							if(profil.getAdresses().size() < 2) {
+							if(profil.getAdresses().size() >= 2) {
 								
 								System.out.println("Nom : " + profil.getNom());
 								System.out.println("Prenom : " + profil.getPrenom());
@@ -845,6 +864,7 @@ public class Application {
 							}
 						}
 						break;
+						
 					case 8: 
 						System.out.println("Veuillez inserer votre site : ?");
 						scanner.nextLine();
@@ -852,14 +872,11 @@ public class Application {
 						//every adress MUST be in the adresses hashmap
 						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
 							if(entry.getValue().getSite().equals(site)) {
-								BoiteMsg temp = new BoiteMsg();
-								entry.getValue().setBoite_de_messagerie(temp);
+								entry.getValue().setBoite_de_messagerie(new BoiteMsg());
 							}
 						}
 						break;
-					}
-					
-					
+					}	
 				break;
 				
 				case 9:

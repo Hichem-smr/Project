@@ -41,7 +41,7 @@ public class BoiteMsg {
 	
 	public void AddReçu(Message message) {
 		 message.setEtat(Etat.RECU);
-		 message.setTitre(message.getTitre() + "(NON LU)");
+		 message.setTitre(message.getTitre() + " (NON LU)");
 		 reçus.add(message) ;
 	}
 	
@@ -67,41 +67,25 @@ public class BoiteMsg {
 		}
 		
 		
-//		String keydestinataire ;
 		AdrEmail valuedestinataire ;
 		
 		
 		int choix;
-//		do {
+
 			Iterator iterator = Application.adresses.entrySet().iterator();	       
-//			System.out.println("----Veuillez inserez votre Address Email Destinataires----");
-//			keydestinataire = scanner.nextLine() ;
-//	        System.out.println("THe address : " + keydestinataire);
-//	        System.out.println(adresses);
 			if(!Application.adresses.containsKey(keydestinataire)) {
 				throw (new destinataire_incorrecte("L'adresse saisie est incorrecte")) ;
 			}
-			Message msg2 = new Message(msg) ;
+			
+			Message msg2 = new MessageAttach(msg) ;
 			msg2.setEtat(Etat.RECU);
-			msg.setTitre(msg.getTitre()+" (NON LU)");
-			valuedestinataire = adresses.get(keydestinataire) ; //get the AdrMail with key keydistinatiare
-			valuedestinataire.getBoite_de_messagerie().AddReçu(msg2);// add the message to that AdrMail
-			adresses.put(keydestinataire, valuedestinataire) ;//put the updated version with the sent nessage bacl into the hashmap
-//			do {
-//				System.out.println("----Voulez vous ajouter d'autres destinataires ?---");
-//				System.out.println("\t1.Oui\n\t2.Non");
-//			
-//			
-//				choix = scanner.nextInt(); scanner.nextLine();
-//			}while(choix!=1 && choix!=2);
+			valuedestinataire = adresses.get(keydestinataire) ; 
+			valuedestinataire.getBoite_de_messagerie().AddReçu(msg2);
+			adresses.put(keydestinataire, valuedestinataire) ;
+
 		
-//		}while(choix==1) ;
-		
-		//add the message to the "envoyes" folder after succesfully sending it
-		msg.setTitre(msg.getTitre().replace(" (NON LU)",""));
 		msg.setEtat(Etat.ENVOYE);
 		envoyés.add(msg) ;
-//		SpaceAlert();
 	}
 	
 	
@@ -477,12 +461,13 @@ public class BoiteMsg {
 	}
 	
 	public void AfficheBoite() {
-		System.out.println("Messages Reçus : \n" + reçus);
-		System.out.println("Messages spam : \n" + spam);
-		System.out.println("Messages brouillons : \n" + brouillons);
-		System.out.println("Messages archives : \n" + archives);
-		System.out.println("Messages corbeille : \n" + corbeille);
-		System.out.println("Messages envoyés : \n" + envoyés);
+		System.out.println("Messages Reçus : \n" + reçus + "\n");
+		System.out.println("Messages spam : \n" + spam + "\n") ;
+		System.out.println("Messages brouillons : \n" + brouillons + "\n");
+		System.out.println("Messages archives : \n" + archives + "\n");
+		System.out.println("Messages corbeille : \n" + corbeille + "\n");
+		System.out.println("Messages envoyés : \n" + envoyés + "\n");
+		System.out.println("\n\n");
 	}
 	
 	public int nbrRecus() {
