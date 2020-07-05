@@ -56,12 +56,12 @@ public class MessageAttach extends Message {
 	}
 	
 	
-	public void saisie() throws MoreThan10485760, ExceptionPieceExistante {
+	public void saisie(int a ) throws MoreThan10485760, ExceptionPieceExistante {
 		
 		Scanner scanner = new Scanner(System.in);
 		int choix ;
 
-		super.saisie(0);
+		super.saisie(a);
 		System.out.println("----Voulez vous ajouter des pieces jointes ?----");	
 		do {
 			System.out.println("\t1.Oui");

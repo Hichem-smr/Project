@@ -154,7 +154,7 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 		if(obj==null)
 			return false ;
 		
-		if (obj.getClass() != this.getClass())
+		if (!(obj instanceof AdrEmail))
 			return false ;
 		
 		AdrEmail o = (AdrEmail) obj ;

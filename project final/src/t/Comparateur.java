@@ -9,7 +9,7 @@ public class Comparateur implements Comparator<Message>{
 		// TODO Auto-generated method stub
 	
 		if (arg0.getCreation().compareTo(arg1.getCreation())!=0)
-			return arg0.getCreation().compareTo(arg1.getCreation());
+			return arg0.getCreation().compareTo(arg1.getCreation())*(-1);
 		else
 			return arg0.getTitre().compareTo(arg1.getTitre()) ;
 	}

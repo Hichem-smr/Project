@@ -12,6 +12,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 
+
 import t.AdrEmail;
 import t.AdrProf;
 import t.BoiteMsg;
@@ -49,7 +50,6 @@ public class Application {
 		adr1[0] = new AdrProf("markzuckerberg","facebook.com","azerfazer12$","médias sociaux","facebook");
 		adr1[1] = new AdrProf("sboukhedouma","usthb.dz","azerfazer12$","Enseignement","usthb"); 
 		AdrEmail adr2 = null;
-		int y = 0;		
 		//filling up the addresses hashmap.
 		for(int i = 0 ; i<6 ; i++) {			
 			adresses.put(adr[i].toString(), adr[i]) ;						
@@ -100,10 +100,23 @@ public class Application {
 		System.out.println("--2--Modifier Une Adresse Email");
 		System.out.println("--3--Supprimer Une Adresse Email");
 		
+		AdrEmail adr = null ;
 		choicce = scanner.nextInt();
 		//choice must be given to whether prof adress or ordinaire
 		if(choicce == 1) {
-			AdrProf adr = new AdrProf();
+			
+			do {
+				System.out.println("Voulez vous un adresse publique ou proffesionel ?");
+				System.out.println("\t1.Publique\n\t2.Proffesionelle");
+				choicce = scanner.nextInt() ; scanner.nextLine() ;
+			}while(choicce!=1 && choicce!=2 );
+			
+			if(choicce==1)
+				adr = new AdrEmail() ;
+			else
+				adr= new AdrProf() ;
+			
+			
 			adr.saisie();
 			adresses.put(adr.toString(), adr);
 			if(Profiles.size() == 0) {
@@ -311,7 +324,7 @@ public class Application {
 					Integer k = null;
 					if(k == null) {
 						System.out.println("Donner votre taille de la boite");
-						k = scanner.nextInt();
+						k = scanner.nextInt(); scanner.nextLine();
 					}
 					
 				for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
@@ -337,7 +350,7 @@ public class Application {
 						System.out.println("----Veuillez Choisir votre Address Email ----");
 						System.out.println("---1- Address Email Normal ----");
 						System.out.println("---2- Address Email Professionnel ----");
-						j = scanner.nextInt();
+						j = scanner.nextInt(); scanner.nextLine();
 						
 						if(j == 1) {
 							AdrEmail adress = new AdrEmail() ;
@@ -345,7 +358,7 @@ public class Application {
 							BoiteMsg BoiteMsg = new BoiteMsg();							
 							if(k1 == null) {
 								System.out.println("Donner votre taille de la boite");
-								k1 = scanner.nextInt();
+								k1 = scanner.nextInt(); scanner.nextLine();
 							}
 							BoiteMsg.setCapacité(k1);
 							adress.setBoite_de_messagerie(BoiteMsg);	
@@ -359,7 +372,7 @@ public class Application {
 							BoiteMsg BoiteMsg = new BoiteMsg();							
 							if(k1 == null) {
 								System.out.println("Donner votre taille de la boite");
-								k = scanner.nextInt();
+								k = scanner.nextInt(); scanner.nextLine();
 							}
 							BoiteMsg.setCapacité(k1);
 							adress.setBoite_de_messagerie(BoiteMsg);
@@ -392,7 +405,7 @@ public class Application {
 						System.out.println("9. vider un dossier (« spam » ou « envoyés »)");
 						System.out.println("10. trier les messages par date et par objet");
 						System.out.println("11. Quitter");
-						choice = scanner.nextInt() ;
+						choice = scanner.nextInt() ; scanner.nextLine();
 					}while(choice > 10 || choice < 1);
 					
 					switch (choice) {
@@ -451,7 +464,6 @@ public class Application {
 					case 2:
 						System.out.println("Veuillez inserer l'adresse de votre boite-Email : ");
 						System.out.println(adresses.keySet());
-						scanner.nextLine();
 						String adress = scanner.nextLine();
 						adresses.get(adress).getBoite_de_messagerie().AfficheBoite();
 						System.out.println("Espace Utilisé : " + adresses.get(adress).getBoite_de_messagerie().SpaceUsed());
@@ -461,19 +473,17 @@ public class Application {
 					case 3:
 						System.out.println("Veuillez inserer votre adresse Email : ");
 						System.out.println(adresses.keySet());
-						scanner.nextLine();
 						String adressSender = scanner.nextLine();
 						System.out.println("Veuillez inserer votre adresse destinataire");
 						String AdressReciever = scanner.nextLine();
 						MessageAttach msg12 = new MessageAttach() ;
-						msg12.saisie();
+						msg12.saisie(0);
 						adresses.get(adressSender).getBoite_de_messagerie().envoyerMsg(msg12, AdressReciever);
 						Messages.put(msg12.getTitre(), msg12);
 						break;
 						
 					case 4:
 						System.out.println("Veuillez inserer l'object de votre message : ");
-						scanner.nextLine();
 						String MessageTitre = scanner.nextLine();
 						if(Messages.containsKey(MessageTitre)) {
 							Messages.get(MessageTitre).afficher();
@@ -484,7 +494,6 @@ public class Application {
 					case 5:
 						System.out.println("Veuillez inserer votre adresse Email : ");
 						System.out.println(adresses.keySet());
-						scanner.nextLine();
 						adressSender = scanner.nextLine();
 						
 						if(!adresses.containsKey(adressSender)) {
@@ -511,7 +520,6 @@ public class Application {
 						do {
 							System.out.println(adresses.keySet() + "\n");
 							System.out.println("Veuillez inserer votre Adresse Email : ?");
-							scanner.nextLine();
 							adress = scanner.nextLine();
 											
 							if(adresses.containsKey(adress)) 
@@ -523,7 +531,6 @@ public class Application {
 								System.out.println("Voulez vous ajouter d'autre Adresses?");
 								System.out.println("--1-- Oui");
 								System.out.println("--2-- Non");
-								scanner.nextLine();
 								choice = scanner.nextInt(); scanner.nextLine();
 							}while(choice != 2 && choice != 1);
 					
@@ -567,7 +574,6 @@ public class Application {
 						
 					case 8:
 						System.out.println("Veuillez inserer votre adress Email : ");
-						scanner.nextLine();
 						adress = scanner.nextLine();
 						if(!(adresses.containsKey(adress))) {
 							System.out.println("Adress invalide");
@@ -576,11 +582,10 @@ public class Application {
 							
 						AdrEmail repondeur = adresses.get(adress) ; 
 						System.out.println("Veuillez inserer l'objet du message : ");
-						scanner.nextLine();
 						String message = scanner.nextLine();
 						Message arepondre = null ;
 						for(Message m : adresses.get(adress).getBoite_de_messagerie().getReçus()) {
-							if(m.getTitre()==message || m.getTitre()==message+" (NON LU)") {
+							if(m.getTitre().contentEquals(message) || m.getTitre().contentEquals(message +" (NON LU)")) {
 								arepondre = m ;
 							}
 						}
@@ -591,19 +596,22 @@ public class Application {
 						}
 						
 						Message reponse  = new MessageAttach() ;	
-						reponse.setTitre("RE:".concat(arepondre.getTitre().replace(" (NON LU)", "")));
+						String nouveauxtitre = arepondre.getTitre();
+						nouveauxtitre = nouveauxtitre.replace(" (NON LU)", "");
+						nouveauxtitre = "RE : ".concat(nouveauxtitre) ;
+						reponse.setTitre(nouveauxtitre);
 						reponse.saisie(1);
 						
 						for(AdrEmail a : adresses.values()) {
-							if(a.getBoite_de_messagerie().getEnvoyes().contains(arepondre)) {
+							if(a.getBoite_de_messagerie().getEnvoyes().contains(arepondre) && !a.equals(repondeur)) {
 								repondeur.getBoite_de_messagerie().envoyerMsg(reponse, a.toString());
+								break ;
 							}
 						}
 						break;
 						
 					case 9:
 						System.out.println("Veuillez inserer votre adress Email : ");
-						scanner.nextLine();
 						adress = scanner.nextLine();
 						
 						if(!adresses.containsKey(adress)) {
@@ -629,39 +637,44 @@ public class Application {
 					case 10:
 						System.out.println(adresses.keySet());
 						System.out.println("Veuillez inserer votre Adress-Email : ?");
-						scanner.nextLine();
 						adress = scanner.nextLine();
-						System.out.println("Veuillez entrer quel dossier voulez vous Trier ?");
-						System.out.println("--1--Spam ? ");
-						System.out.println("--2--Envoyés ? ");
-						System.out.println("--3--Reçus ?");					
-						System.out.println("--4--brouillons ? ");
-						System.out.println("--5--archives ? ");
-						System.out.println("--6--corbeille ? ");
-						scanner.nextLine();
+						if(!adresses.containsKey(adress)) {
+							System.out.println("adress non existante");
+							break ;
+						}
+						
+						Scanner scanner2 = new Scanner(System.in) ;
+						
 						do {
-							choix = scanner.nextInt(); scanner.nextLine();
+							System.out.println("Veuillez entrer quel dossier voulez vous Trier ?");
+							System.out.println("--1--Spam ? ");
+							System.out.println("--2--Envoyés ? ");
+							System.out.println("--3--Reçus ?");					
+							System.out.println("--4--brouillons ? ");
+							System.out.println("--5--archives ? ");
+							System.out.println("--6--corbeille ? ");
+							choix = scanner2.nextInt(); scanner2.nextLine();
 						}while(choix < 1 || choix > 6);
 						
-						HashSet dossier = null ;
+						HashSet<Message> dossier = null ;
 						switch (choix) {
 						case 1:
-							dossier	= (HashSet) adresses.get(adress).getBoite_de_messagerie().getSpam().clone();
+							dossier	= new HashSet<Message>(adresses.get(adress).getBoite_de_messagerie().getSpam()) ;
 							break;
 						case 2:
-							dossier = (HashSet) adresses.get(adress).getBoite_de_messagerie().getEnvoyes().clone();
+							dossier = new HashSet<Message>(adresses.get(adress).getBoite_de_messagerie().getEnvoyes()) ;
 							break;
 						case 3:
-							dossier = (HashSet) adresses.get(adress).getBoite_de_messagerie().getReçus().clone();
+							dossier = new HashSet<Message>(adresses.get(adress).getBoite_de_messagerie().getRecus()) ;
 							break;
 						case 4:
-							dossier	= (HashSet) adresses.get(adress).getBoite_de_messagerie().getBrouillons().clone();
+							dossier	= new HashSet<Message>(adresses.get(adress).getBoite_de_messagerie().getBrouillons()) ;
 							break;
 						case 5:
-							dossier	= (HashSet) adresses.get(adress).getBoite_de_messagerie().getArchives().clone();
+							dossier	=new HashSet<Message>(adresses.get(adress).getBoite_de_messagerie().getArchives()) ;
 							break;
 						case 6:
-							dossier = (HashSet) adresses.get(adress).getBoite_de_messagerie().getCorbeille().clone();
+							dossier =new HashSet<Message>(adresses.get(adress).getBoite_de_messagerie().getCorbeille()) ;
 							break;
 						}
 						
@@ -700,7 +713,7 @@ public class Application {
 						System.out.println("6. Rechercher les messages par destinataire, par expéditeur, par mot clé.");
 						System.out.println("7. Afficher les noms, prénoms des profils ayant au moins deux boites de messagerie.");  							
 						System.out.println("8. Vider toutes les boites d’un site donné");
-						choice = scanner.nextInt() ;
+						choice = scanner.nextInt() ; scanner.nextLine();
 					}while( choice > 8 || choice < 1 );
 					switch (choice) {
 					
@@ -771,7 +784,6 @@ public class Application {
 					case 5: 
 						System.out.println("Veuillez inserer l'adresse de votre boite-Email : ");
 						System.out.println(adresses.keySet());
-						scanner.nextLine();
 						String adrress = scanner.nextLine();
 						
 						if(!adresses.containsKey(adrress)) {
@@ -806,13 +818,12 @@ public class Application {
 						
 					case 6: 
 						System.out.println("----Voulez vous : ?----");
-						scanner.nextLine();
 						do {
 						System.out.println("--1--Rechercher par Destinataire ?");
 						System.out.println("--2--Rechercher par Expéditeur ?");
 						System.out.println("--3--Rechercher par un mot Clé ?");
 						
-						choix = scanner.nextInt();
+						choix = scanner.nextInt(); scanner.nextLine() ;
 						}while(choix < 1 || choix > 3);
 						
 						switch(choix) {
@@ -910,7 +921,7 @@ public class Application {
 			System.out.println("7. Gestion des boites e-mails");
 			System.out.println("8. Autres requêtes :");		
 			System.out.println("9. Quitter");
-			z = scanner.nextInt();	
+			z = scanner.nextInt();	scanner.nextLine() ;
 		}while(z<1 || z>9);
 		return z;
 		

@@ -68,8 +68,6 @@ public class BoiteMsg {
 		
 		
 		AdrEmail valuedestinataire ;
-		
-		
 		int choix;
 
 			Iterator iterator = Application.adresses.entrySet().iterator();	       
@@ -115,7 +113,7 @@ public class BoiteMsg {
 		boolean trouve  = false ;
 		
 		for(Message m : dossier) {
-			if(m.getTitre().contentEquals(titre) || m.getTitre().contentEquals(titre+"(NON LU)")) {
+			if(m.getTitre().contentEquals(titre) || m.getTitre().contentEquals(titre+" (NON LU)")) {
 				asupprimer.add(m) ;
 				trouve = true ;
 			}
@@ -200,7 +198,7 @@ public class BoiteMsg {
 		boolean trouve  = false ;
 		
 		for(Message m : corbeille) {
-			if(m.getTitre()==titre) {
+			if(m.getTitre().contentEquals(titre) || m.getTitre().contentEquals(titre+" (NON LU)")) {
 				asupprimer.add(m) ;
 				trouve = true ;
 			}
