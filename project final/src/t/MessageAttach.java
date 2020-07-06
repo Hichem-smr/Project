@@ -32,6 +32,17 @@ public class MessageAttach extends Message {
 	}
 	
 	
+	public MessageAttach(String titre , String contenu,  HashSet<piece_jointe> attachement , Date creation){
+		super(titre , contenu, creation );
+		this.attachement= attachement ;	
+		tailleattachement = 0;
+		for(piece_jointe p : this.attachement) {
+			tailleattachement += p.getTaille() ;
+		}
+		
+		
+	}
+	
 	public MessageAttach(Message msg){
 		super(msg) ;
 		

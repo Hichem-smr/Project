@@ -40,6 +40,16 @@ public class Message implements Comparator<Message>, Comparable<Message> {
 		this.creation = m.creation ;
 		this.taille = m.taille ;
 	}
+	
+	public Message(String titre, String contenu, Date creation ){
+		
+		this.creation = creation ;
+		this.titre = titre ;
+		this.contenu = contenu ; 
+		this.etat = Etat.CREE;
+		taille = titre.length() + contenu.length();
+	}
+
 
 	public Etat getEtat() {
 		return etat;

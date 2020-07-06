@@ -23,8 +23,7 @@ public class BoiteMsg {
 	private HashSet<Message> spam ;
 	private long capacité;
 	
-	
-	
+		
 	public BoiteMsg (){
 		reçus = new HashSet<Message>();
 		envoyés = new HashSet<Message>();
@@ -400,10 +399,10 @@ public class BoiteMsg {
 				archives.add(m);
 			}
 		}
-	//	
+		
 	}
 	
-	//untested
+	
 	public int SpaceUsed() {
 		int s = 0;
 			for(Message m : reçus) 	
@@ -456,15 +455,15 @@ public class BoiteMsg {
 			
 			return s;
 				
-			}
+	}
 	
-	//untested	
+	
 	public int SpaceLeft() {
 		int k = (int) capacité - SpaceUsed();
 		return k;
 	}
 		
-	//untested
+	
 	public void SpaceAlert() {
 		if( (int) (capacité*0.8) <= SpaceUsed() ) {
 			System.out.println("				   ****ALERTE !!! *****");
@@ -493,9 +492,7 @@ public class BoiteMsg {
 		 return false;
 	}
 	
-	
-	
-	
+
 	public int nbrRecus() {
 		
 		return reçus.size() ;
