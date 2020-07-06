@@ -1,5 +1,7 @@
 package t;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -349,7 +351,7 @@ public class BoiteMsg {
 	}
 	
 	
-	public void archiver() {
+	public void archiver() throws ParseException {
 		
 		Scanner scanner = new Scanner(System.in) ;
 	
@@ -367,35 +369,27 @@ public class BoiteMsg {
 		System.out.println("Jour : ?");
 		day = scanner.nextInt();
 
-		date = new Date(year, month, day) ; 
-		
-	
-		    
-		    
-		    
-		for(Message m : reçus) {
-			if(m.getCreation().before(date)) {
-				m.setEtat(Etat.ARCHIVE);
-				this.archives.add(m);
-			}
-		}
-		
+		String myDate = (year+"/"+month+"/"+day + " 00:00:00");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+		date = sdf.parse(myDate) ; 
+			
 		Iterator<Message> iterator = reçus.iterator();
 		while (iterator.hasNext()) {
 			Message m = iterator.next();
 			if(m.getCreation().before(date)) {
 				iterator.remove();
+				m.setEtat(Etat.ARCHIVE);
 				archives.add(m);
 			}
 		}
-		
-		
 		
 		iterator = envoyés.iterator();
 		while (iterator.hasNext()) {
 			Message m = iterator.next();
 			if(m.getCreation().before(date)) {
 				iterator.remove();
+				m.setEtat(Etat.ARCHIVE);
 				archives.add(m);
 			}
 		}

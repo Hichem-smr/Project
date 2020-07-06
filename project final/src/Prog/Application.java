@@ -1,5 +1,6 @@
 package Prog;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -551,7 +552,7 @@ public class Application {
 	}
 	
 	
-	public static void archiverMsg() {
+	public static void archiverMsg() throws ParseException {
 		
 		Scanner scanner = new Scanner(System.in) ;
 		String adress ;
@@ -996,7 +997,7 @@ public class Application {
 	}
 	
 	
-	public static void main(String[] args) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide {
+	public static void main(String[] args) throws destinataire_incorrecte, MoreThan10485760, ExceptionPieceExistante, message_vide, ParseException {
 		
 		Message[] Msg = new Message [5];
 		MessageAttach[] MsgAttach  = new MessageAttach [2];
