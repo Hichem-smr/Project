@@ -29,7 +29,7 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 	
 	
 	//Method pour changer le mot de passe.
-	public void reintialiserMdp() {
+	public String reintialiserMdp() {
 		
 		Scanner scanner = new Scanner(System.in);
 		String temp ;
@@ -54,6 +54,8 @@ public class AdrEmail implements Comparator<AdrEmail>, Comparable<AdrEmail>{
 				System.out.println("Veuilez reessayer.");
 			
 		}while (!mdpValide) ;
+		
+		return temp;
 		
 	}
 	

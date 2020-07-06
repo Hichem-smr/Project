@@ -114,12 +114,7 @@ public class Profil {
 
 	public void DeleteAdr(String adr) {
 		//return the adress if found else null
-		for (Map.Entry<String, AdrEmail> entry : Adresses.entrySet()) {
-			if(Adresses.containsKey(adr)) {
-				Adresses.remove(adr);
-				
-			}
-		}
+		Adresses.remove(adr);
 		
 	}
 

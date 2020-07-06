@@ -96,11 +96,13 @@ public class Application {
 		Scanner scanner = new Scanner(System.in) ;
 		System.out.println("------Voulez vous ?------");
 		int choicce;
+//		scanner.nextLine();
 		System.out.println("--1--Ajouter Une Adresse Email");
 		System.out.println("--2--Modifier Une Adresse Email");
 		System.out.println("--3--Supprimer Une Adresse Email");
 		
 		AdrEmail adr = null ;
+		
 		choicce = scanner.nextInt();
 		//choice must be given to whether prof adress or ordinaire
 		if(choicce == 1) {
@@ -148,6 +150,7 @@ public class Application {
 		
 		if(choicce == 2) {
 			String adress ;
+			scanner.nextLine();
 			System.out.println("Veuillez inserer votre adresse à changer : ");
 			adress = scanner.nextLine();
 			if(!adresses.containsKey(adress)) {
@@ -160,51 +163,89 @@ public class Application {
 			System.out.println("--1--Modifier votre Psuedo");
 			System.out.println("--2--Modifier votre mot de passe");
 			System.out.println("--3--Assigner votre adress a un autre profil");
+			
 			choicce1 = scanner.nextInt();
 			
 			switch (choicce1) {
 			case 1:
 				AdrEmail temp;
 				temp = adresses.get(adress);				
-				temp.SaisiePsuedo();
+				String pseudo = temp.SaisiePsuedo();
+				temp.setPseudo(pseudo);
+				
 				adresses.remove(adress);
 				adresses.put(temp.toString(), temp);
+				System.out.println(temp.toString());
 				break;
 			case 2:
-				adresses.get(adress).reintialiserMdp();
+				temp = adresses.get(adress);
+				String mdp = temp.reintialiserMdp();
+				temp.setMdp(mdp);
+				
+				adresses.remove(adress);				
+				adresses.put(temp.toString(), temp);
+				
+				System.out.println(temp.getMdp());
 				break;
 			case 3:
-				System.out.println("Quel Profil voulez-vous assigner votre adress avec ?");
+				
 				i = 1;
 				//we gotta find the adress before deleting it from the profile
-				AdrEmail temp1 = null; ;
-				for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
-					if( (entry.getKey().equals(adress) )) {
-						temp1 = entry.getValue();
-					}
+				AdrEmail temp1 = adresses.get(adress);
+			
+				
+				//we delete the adress from the current profile
+				for(Profil profil : Profiles) {					
+					if(profil.getAdresses().containsKey(adress)) {
+						profil.DeleteAdr(adress);
+					} 
 				}
 				
-				//we delete the adress from the current profile while displaying
-				for(Profil profil : Profiles) {					
-					profil.DeleteAdr(adress);
-					System.out.println(i + "--" + profil );
+				System.out.println("Quel Profil voulez-vous assigner votre adress avec ?");
+				for(Profil profil : Profiles) {
+					System.out.println(i + "--" + profil);
 					i++;
 				}
-				int m;
-				// m must be between 1 and i
-				do {
-					m = scanner.nextInt();
-				}while(m > i || m<1);
+				
+				int profileChoice = scanner.nextInt();
+				
 				
 				i = 1;
-				//we assign the adress to the new profile
+				
 				for(Profil profil : Profiles) {
-					if(i == m) {
+					if(!(profileChoice == i)) {
+						i++;
+					} 
+					else {
+						System.out.println("Before : " + profil.getAdresses());
+						break;
+					}
+						
+				}
+				i=1;
+				
+				for(Profil profil : Profiles) {
+					if(!(profileChoice == i)) {
+						i++;
+					} 
+					else {
 						profil.getAdresses().put(temp1.toString(), temp1);
+					}
+						
+				}
+				
+				
+				i = 1;
+				
+				for(Profil profil : Profiles) {
+					if(!(profileChoice == i)) {
+						i++;
+					} 
+					else {
+						System.out.println("After :" + profil.getAdresses());
 						break;
 					}
 				}
-				
 				
 				break;
 			}
@@ -218,6 +259,7 @@ public class Application {
 		if(choicce == 3) {
 			String adress1 ;
 			System.out.println("Veuillez inserer votre adresse à supprimer : ");
+			scanner.nextLine();
 			adress1 = scanner.nextLine();
 			if(!adresses.containsKey(adress1)) {
 				System.out.println("Cette adresse n'existe pas");
