@@ -36,6 +36,7 @@ public class Application {
 	public static ArrayList<String> list = new ArrayList<String>(); 
 	public static HashSet<Profil> Profiles = new HashSet<Profil>() ;
 	public static HashMap<String ,Message> Messages = new HashMap<String ,Message>() ;
+	public static HashMap<Message, String > Messages1 = new HashMap<Message, String >() ;
 	static AdrEmail adr [] = new AdrEmail [6];
 	static AdrProf adr1 [] = new AdrProf [2];
 
@@ -80,7 +81,7 @@ public class Application {
 		profil4.getAdresses().put(adr[0].toString(), adr[0]);
 		profil4.getAdresses().put(adr[1].toString(), adr[1]);
 		Profiles.add(profil4);
-			
+		
 		
 		Profil profil5 = new Profil("Ameziane", "abbdle ghani", 20, "0559873980", "Algerie", "MASCULAIN");
 		Profiles.add(profil5);
@@ -775,7 +776,7 @@ public class Application {
 						String message = scanner.nextLine();
 						//all messages must exist in the Messages hashshet
 						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
-							if(entry.getValue().getBoite_de_messagerie().getRecus().contains(Messages.get(message))) {
+							if( entry.getValue().getBoite_de_messagerie().containsReçus(message) ){
 								System.out.println(entry.getKey());
 							}
 						}
@@ -783,7 +784,7 @@ public class Application {
 						
 					case 2: 
 						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
-							if(entry.getValue().getBoite_de_messagerie().getCapacité()*0.5 < entry.getValue().getBoite_de_messagerie().SpaceLeft()) {
+							if(entry.getValue().getBoite_de_messagerie().getCapacité()*0.5 < entry.getValue().getBoite_de_messagerie().SpaceUsed()) {
 								System.out.println(entry.getKey());
 							}
 						}
@@ -798,6 +799,16 @@ public class Application {
 								Profadresses.put(entry.getKey(), entry.getValue());
 							}
 						}
+						System.out.println("-------Adresses Normal : ");
+						for (Map.Entry<String, AdrEmail> entry : Normadresses.entrySet()) {
+							System.out.println(entry.getValue());
+						}
+						
+						System.out.println("-------Adresses Professionnel : ");
+						for (Map.Entry<String, AdrEmail> entry : Profadresses.entrySet()) {
+							System.out.println(entry.getValue());
+						}
+						
 						break;
 						
 					case 4: 
@@ -844,14 +855,17 @@ public class Application {
 							break ;
 						}
 						
+						System.out.println("-----Dossier Reçus--------");
 						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getReçus() ) {
 							if((message1 instanceof MessageAttach)) {
-								if(((MessageAttach) message1).getAttachement() != null) {
+								if(((MessageAttach) message1).getTailleattachement() != 0) {
+									
 									message1.afficher();
+									System.out.println("---------------------------------------------------------");
 								}
 							}
 						}
-						
+						System.out.println("-----Dossier Brouillons--------");
 						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getBrouillons() ) {     
 							if((message1 instanceof MessageAttach)) {
 								if(((MessageAttach) message1).getAttachement() != null) {
@@ -859,7 +873,7 @@ public class Application {
 								}
 							}
 						}
-						
+						System.out.println("-----Dossier Envoyées--------");
 						for(Message message1 : adresses.get(adrress).getBoite_de_messagerie().getEnvoyes() ) {
 							if((message1 instanceof MessageAttach)) {
 								if(((MessageAttach) message1).getAttachement() != null) {
@@ -881,17 +895,29 @@ public class Application {
 						
 						switch(choix) {
 						case 1:
+							System.out.println("Veuillez inserer votre adresse Email : ");
+							String adr = scanner.nextLine();
+							
 							System.out.println("Veuillez inserer votre adresse Destinataire : ");
 							String destinataire = scanner.nextLine();
 							if(!adresses.containsKey(destinataire)) {
 								System.out.println("adresse non existante");
 								break ;
 							}
-								
-							System.out.println(adresses.get(destinataire).getBoite_de_messagerie().getRecus());
+//							System.out.println( adresses.get(adr).getBoite_de_messagerie().getEnvoyes());
+//							System.out.println(adresses.get(destinataire).getBoite_de_messagerie().getRecus());
+							System.out.println("Les messages Envoye vers l'adress : " + destinataire + " sont : ");
+							//Les messages envoyées doivent etre les memes reçus
+							System.out.println(adresses.get(destinataire).getBoite_de_messagerie().getReçus());
+							
+							
+							
 							
 							break;
 						case 2:
+							System.out.println("Veuillez inserer votre adresse Email : ");
+							adr = scanner.nextLine();
+							
 							System.out.println("Veuillez inserer votre adresse Expediteur : ");
 							String expediteur = scanner.nextLine();
 							
@@ -899,7 +925,7 @@ public class Application {
 								System.out.println("adresse non existante");
 								break ;
 							}
-							
+							System.out.println("Les messages envoyé de l'adress : " + expediteur + " sont : ");
 							System.out.println(adresses.get(expediteur).getBoite_de_messagerie().getEnvoyes());
 							
 							break;
@@ -919,24 +945,28 @@ public class Application {
 						break;
 
 					case 7: 
+						int i;
 						for(Profil profil : Profiles) {
+						
 							if(profil.getAdresses().size() >= 2) {
 								
 								System.out.println("Nom : " + profil.getNom());
 								System.out.println("Prenom : " + profil.getPrenom());
-								
+								System.out.println("-----------------------------------------------");
 							}
 						}
 						break;
 						
 					case 8: 
 						System.out.println("Veuillez inserer votre site : ?");
-						scanner.nextLine();
+						long cap;
 						site = scanner.nextLine();
 						//every adress MUST be in the adresses hashmap
 						for (Map.Entry<String, AdrEmail> entry : adresses.entrySet()) {
 							if(entry.getValue().getSite().equals(site)) {
+								cap = entry.getValue().getBoite_de_messagerie().getCapacité();
 								entry.getValue().setBoite_de_messagerie(new BoiteMsg());
+								entry.getValue().getBoite_de_messagerie().setCapacité(cap);
 							}
 						}
 						break;

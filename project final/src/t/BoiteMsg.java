@@ -483,6 +483,19 @@ public class BoiteMsg {
 		System.out.println("\n\n");
 	}
 	
+	
+	public boolean containsReçus(String message) {
+		 for(Message msg : reçus) {
+			 if(msg.getTitre().equals(message) || msg.getTitre().equals(message.concat(" (NON LU)")) ) {
+				 return true;
+			 }
+		 }
+		 return false;
+	}
+	
+	
+	
+	
 	public int nbrRecus() {
 		
 		return reçus.size() ;

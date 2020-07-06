@@ -14,7 +14,7 @@ public class Profil {
 	private String numero;
 	private String pays;
 	private Genre genre;
-	static HashMap<String ,AdrEmail> Adresses = new HashMap<String ,AdrEmail>() ;
+	private HashMap<String ,AdrEmail> Adresses ;
 	
 	public Profil(){
 		
@@ -27,6 +27,7 @@ public class Profil {
 		this.numero = numero;
 		this.pays = pays;
 		this.genre = Genre.valueOf(genre);
+		Adresses = new HashMap<String ,AdrEmail>() ;
 	}
 	
 	public void saisieProfil() {
@@ -103,6 +104,10 @@ public class Profil {
 		return true;
 	}
 
+	public void addAdress(AdrEmail adress) {
+		Adresses.put(adress.toString(), adress);
+	}
+	
 	public HashMap<String, AdrEmail> getAdresses() {
 		return Adresses;
 	}
