@@ -1000,18 +1000,18 @@ public class Application {
 		
 		Message[] Msg = new Message [5];
 		MessageAttach[] MsgAttach  = new MessageAttach [2];
-		Msg[0] = new Message("Cours Systeme","un cours est programmé samedi à 10h00", new Date(2020, 7 , 10, 0 , 0 , 0));
-		Msg[1] = new Message("Cours POO","un cours est programmé samedi à 9h00" ,new Date(2020, 7 , 10, 0 , 0 , 0));
-		Msg[2] = new Message("Cours Archi","un cours est programmé samedi à 14h00" ,new Date(2020, 7 , 12, 0 , 0 , 0));
+		Msg[0] = new Message("Cours Systeme","un cours est programmé samedi à 10h00", new Date(1594335600000L));
+		Msg[1] = new Message("Cours POO","un cours est programmé samedi à 9h00" ,new Date(1594335600000L));
+		Msg[2] = new Message("Cours Archi","un cours est programmé samedi à 14h00" ,new Date(1594508400000L));
 		Msg[3] = new Message("Cours Bdd","un cours est programmé samedi à 11h00");
-		Msg[4] = new Message("Cours Python","un cours est programmé samedi à 13h00", new Date(2020, 7 , 12, 0 , 0 , 0));	
+		Msg[4] = new Message("Cours Python","un cours est programmé samedi à 13h00", new Date(1594508400000L));	
 		
 		HashSet<piece_jointe> piece = new HashSet<piece_jointe>();
 		piece.add(new piece_jointe("Serie d'exercices THL",10000)) ;
-		MsgAttach[0] = new MessageAttach("Cours THL","un cours est programmé samedi à 8h00",piece , new Date(2020, 7 , 14, 0 , 0 , 0));
+		MsgAttach[0] = new MessageAttach("Cours THL","un cours est programmé samedi à 8h00",piece , new Date(1594681200000L));
 		HashSet<piece_jointe> piece2 = new HashSet<piece_jointe>(); 
 		piece2.add(new piece_jointe("Serie d'exercices Anglais",10000));
-		MsgAttach[1] = new MessageAttach("Cours Anglais","un cours est programmé samedi à 15h00",piece2 , new Date(2020, 7 , 14, 0 , 0 , 0));		
+		MsgAttach[1] = new MessageAttach("Cours Anglais","un cours est programmé samedi à 15h00",piece2 , new Date(1594681200000L));		
 		for(int i = 0 ; i<4 ; i++) {			
 			Messages.put(Msg[i].getTitre(), Msg[i]) ;						
 		}
